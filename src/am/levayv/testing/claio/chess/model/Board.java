@@ -34,9 +34,41 @@ public class Board {
     public void traverseCells(){
         //todo implement ! or move to interface
     }
-    public void move(Pos from , Pos to){
+    private void move(){
+
+    }
+    public void moveFromTo(Pos from , Pos to){
         // get valid cells
         // move piece from cell 1 to cell 2
+
+    }
+    public boolean moveFrom(Pos from){ //todo ASAP
+        Cell cell = getCellByPos(from);
+        // if else if else with return , i smell bad practice
+        if (cell.isOccupied()){
+            if (cell.canMoveThePiece()){ //todo simplify
+                return true;
+            } else {
+                //do nothing
+                return false;
+            }
+        }else {
+            //do nothing
+            return false;
+        }
+// todo delete me
+//        if (cell.isOccupied() && cell.canMoveThePiece()){
+//            return true;
+//        }else {
+//            return false;
+//        }
+    }
+    public void moveTo(Pos to){
+
+    }
+    private Helper helper = new Helper();
+    private Cell getCellByPos(Pos pos){
+        return cell[pos.x][pos.y];
     }
     private void setUpPieces(){ // temp
         // pieces are instantiated >>> new Pawn(White), new King(Black)
@@ -80,6 +112,11 @@ public class Board {
         pieces.add(cell[6][5].initialAdd(new Pawn(Owner.BLACK)));
         pieces.add(cell[6][4].initialAdd(new Pawn(Owner.BLACK)));
     }
+
+
+}
+
+
 //    private void createPieces(){
 //        pieces.add(new Pawn(Owner.WHITE , new Pos(0,4)));
 //        pieces.add(new Pawn(Owner.BLACK , new Pos(7,4)));
@@ -149,4 +186,4 @@ public class Board {
 //        pieces[30] = new Pawn(Owner.BLACK);
 //        pieces[31] = new Pawn(Owner.BLACK);
 //    }
-}
+

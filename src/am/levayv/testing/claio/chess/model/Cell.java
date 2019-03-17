@@ -24,13 +24,23 @@ public class Cell {
     }
 
     private Piece piece;
+    public boolean canMoveThePiece(){
+        boolean aaa = true; // todo IMF
+        if (occupied)
+            return piece.canMove();
+        else
+            return false;
+    }
 
     public Piece initialAdd(Piece piece) {
         addPiece(piece);
         return piece;
     }
 
-    public boolean occupied;
+    private boolean occupied;
+    public boolean isOccupied(){
+        return occupied;
+    }
 
     public View getView() {
         if (!occupied)

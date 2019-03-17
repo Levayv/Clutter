@@ -3,7 +3,7 @@ package am.levayv.testing.claio.chess.model;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Model {
+public class Model { //aka root , AFAIK domain model
     private static final Logger log = LogManager.getLogger(Model.class);
     private static final Model instance = new Model();
     private Model(){
@@ -23,6 +23,9 @@ public class Model {
 //    public Mask mask;
 
     public Board board;
+    // movement prototype //todo IMF
+    private Round round = new Round();
+
 
 //    @Deprecated
 //    public void calcMasks(){

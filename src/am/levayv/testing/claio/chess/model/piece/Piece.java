@@ -36,6 +36,11 @@ public abstract class Piece {
         return view;
     }
 
+    public boolean canMove(){
+        // todo IMF - check if current piece got available moves
+        return true;
+    }
+
     @Deprecated
     public Pos getPos() {
         return pos;
