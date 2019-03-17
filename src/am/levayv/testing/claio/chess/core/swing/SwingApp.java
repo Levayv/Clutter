@@ -33,13 +33,12 @@ public class SwingApp extends AbstractApp implements ActionListener {
         // todo what's next man ?
 //        view.update();
         //logger test
-        log.debug("This Will Be Printed On Debug");
-        log.info("This Will Be Printed On Info");
+//        log.debug("This Will Be Printed On Debug");
+//        log.info("This Will Be Printed On Info");
 //        log.warn("This Will Be Printed On Warn");
 //        log.error("This Will Be Printed On Error");
 //        log.fatal("This Will Be Printed On Fatal");
 
-        log.info("SwingApp : OK");
     }
 
     @Override

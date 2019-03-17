@@ -1,4 +1,4 @@
-package am.levayv.testing.claio.chess.model.piece;
+package am.levayv.testing.claio.chess.model.piece.data;
 
 public class Pos {
     public byte x;
@@ -6,13 +6,15 @@ public class Pos {
     // main grid positions are 0->7 , -1 out of main grid
 
     @Deprecated
-    public Pos(){
+    public Pos() throws Exception{
         this.x = -1;
         this.y = -1;
+        throw new Exception("UncheckedGridValue");
     }
-    public Pos(int x , int y){ //todo check values int <> byte OR refactor constructor
+    public Pos(int x , int y) throws Exception { //todo check values int <> byte OR refactor constructor
         this.x = (byte) x;
         this.y = (byte) y;
+        throw new Exception("UncheckedGridValue");
     }
     /** Overloading
      * //todo what are you overloading darling !

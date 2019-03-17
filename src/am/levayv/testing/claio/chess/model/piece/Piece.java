@@ -1,24 +1,42 @@
 package am.levayv.testing.claio.chess.model.piece;
 
+import am.levayv.testing.claio.chess.model.View;
+import am.levayv.testing.claio.chess.model.piece.data.Owner;
+import am.levayv.testing.claio.chess.model.piece.data.Pos;
+
 public abstract class Piece {
-    private ChessMan name;
+    private ChessMan type;
     private Owner owner;
+    private View view;
+    /** Piece must NOT have a position , Piece assigned to cell, which had a position (refactor in progress)*/
+    @Deprecated
     private Pos pos;
     //STOPSHIP unique identifier of piece , for testing purposes only
     private int uId = 0; // "=0" is redundant AFAIK
     private static int count = 0; // "=0" is redundant AFAIK
 
-//    public abstract void move();
-
-    public Piece(Owner owner, Pos pos) {
-        name = init();
+    public Piece(Owner owner) {
         this.owner = owner;
-        this.pos = pos;
+        this.type = initType();
+        this.view = initView();
+
+//        this.view = new View();
+//        this.pos = pos;
+
         uId = uId + count;
         count++;
     }
-    protected abstract ChessMan init();
 
+    protected abstract ChessMan initType();
+    private View initView(){
+        char icon = type.getIcon(owner == Owner.WHITE);
+        char letter = type.getLetter(owner == Owner.WHITE);
+        view = new View(icon, letter);
+        System.out.println("!!! init piece test : " + view.icon + " " + view.letter);
+        return view;
+    }
+
+    @Deprecated
     public Pos getPos() {
         return pos;
     }
@@ -27,8 +45,8 @@ public abstract class Piece {
         return owner.equals(Owner.WHITE);
     }
 
-    public ChessMan getName() {
-        return name;
+    public ChessMan getType() {
+        return type;
     }
 
     public int getUId() {
@@ -36,5 +54,7 @@ public abstract class Piece {
     }
 
 
-
+    public View getView(){
+        return view;
+    }
 }

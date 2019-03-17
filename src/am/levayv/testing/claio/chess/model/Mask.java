@@ -1,8 +1,12 @@
 package am.levayv.testing.claio.chess.model;
 
 import am.levayv.testing.claio.chess.model.piece.ChessMan;
-import am.levayv.testing.claio.chess.model.piece.Pos;
+import am.levayv.testing.claio.chess.model.piece.data.Pos;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+@Deprecated
+/* todo Remove Mask class usage entirely */
 public class Mask {
     private final int size = Model.getBoardSize();
     private ChessMan[][] type; //todo refactor enums
@@ -15,6 +19,7 @@ public class Mask {
         type      = new ChessMan[size][size];
         isOccupied    = new boolean[size][size];
         isWhite     = new boolean[size][size];
+
 
 
 //        considered bad practice ?

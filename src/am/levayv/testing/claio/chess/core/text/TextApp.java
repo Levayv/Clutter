@@ -2,17 +2,10 @@ package am.levayv.testing.claio.chess.core.text;
 
 import am.levayv.testing.claio.chess.AppType;
 import am.levayv.testing.claio.chess.core.AbstractApp;
-import am.levayv.testing.claio.chess.core.swing.SwingApp;
 import am.levayv.testing.claio.chess.model.piece.Piece;
-import am.levayv.testing.claio.chess.model.piece.Pos;
 import am.levayv.testing.claio.chess.ui.TextUI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.awt.*;
-import java.io.Console;
-import java.io.IOException;
-import java.util.Scanner;
 
 public class TextApp extends AbstractApp {
     private static final Logger log = LogManager.getLogger(TextApp.class);
@@ -37,15 +30,14 @@ public class TextApp extends AbstractApp {
 //        qq = scanner.nextLine();
 //        System.out.println(qq);
 
-        System.out.println("!!!");
         // todo refactor board must be PRIVATE , use MASKS only
         for (int i = 0; i < model.board.pieces.size(); i++) {
             Piece p = model.board.pieces.get(i);
-            System.out.println(p.getName().getLetter(p.isWhite())+
-                    " in pos = "+
-                    Pos.toCellName(p.getPos())+
-                    " id = "+p.getUId()
-            );
+//            System.out.println(p.getName().getLetter(p.isWhite())+
+//                    " in pos = "+
+//                    Pos.toCellName(p.getPos())+
+//                    " id = "+p.getUId()
+//            );
         }
 
     }
