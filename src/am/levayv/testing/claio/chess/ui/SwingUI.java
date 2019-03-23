@@ -156,15 +156,20 @@ public class SwingUI extends AbstractUI {
             String stringBuffer = String.valueOf(button.cell.getView().icon);
             button.setText(stringBuffer);
 
-            if (button.cell.getView().isActive()){
-                button.setBorder(moveActiveBorder);
-            } else {
-                if (button.cell.getView().isCandidate()){
-                    button.setBorder(moveCandidateBorder);
-                }else {
-                    button.setBorder(border);
-                }
+            switch (button.cell.getStatus()) { //todo its ugly i know
+                case None:      button.setBorder(border); break;
+                case Active:    button.setBorder(moveActiveBorder); break;
+                case Candidate: button.setBorder(moveCandidateBorder); break;
             }
+
+//            if (button.cell.getView().isActive()){
+//            } else {
+//                if (button.cell.getView().isCandidate()){
+//                    button.setBorder(moveCandidateBorder);
+//                }else {
+//                    button.setBorder(border);
+//                }
+//            }
 
 
 

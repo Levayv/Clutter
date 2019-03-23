@@ -3,7 +3,7 @@ package am.levayv.testing.claio.chess.model.fsm;
 
 import am.levayv.testing.claio.chess.model.Cell;
 import am.levayv.testing.claio.chess.model.Status;
-import am.levayv.testing.claio.chess.model.piece.data.Owner;
+import am.levayv.testing.claio.chess.model.piece.data.Color;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
 
 public class Controller{
@@ -11,8 +11,8 @@ public class Controller{
     private int count; // todo IMF rounds count
     private boolean isWhiteTurn; //todo delete
     private boolean isMoving; //todo delete
-    private Owner currentPlayer = Owner.WHITE;
-    public Owner getOwner(){return currentPlayer;}
+    private Color currentPlayer = Color.WHITE;
+    public Color getOwner(){return currentPlayer;}
 
     private Cell activeCell; // which cell's piece to move on click
     public Cell getActiveCell() {
@@ -61,17 +61,17 @@ public class Controller{
     }
 
     public void switchPlayer(){
-        if (currentPlayer.equals(Owner.WHITE))
-            currentPlayer = Owner.BLACK;
+        if (currentPlayer.equals(Color.WHITE))
+            currentPlayer = Color.BLACK;
         else
-            currentPlayer = Owner.WHITE;
+            currentPlayer = Color.WHITE;
     }
 //    private MessageDispatcher dispatcher = new MessageDispatcher();
     StateMachine<Controller, ControllerState> stateMachine;
     public Controller(){
         stateMachine = new StateMachine
                 <Controller, ControllerState>
-                (this, ControllerState.WHITE_WAIT);
+                (this, ControllerState.WAITING);
     }
 
     public void handleEventAt(Pos pos) {

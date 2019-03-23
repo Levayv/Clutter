@@ -7,7 +7,7 @@ import am.levayv.testing.claio.chess.model.piece.data.Pos;
 
 public enum ControllerState implements State<Controller> {
 
-    WHITE_WAIT() { //todo consider refactoring 1. WAITING 2. MOVING
+    WAITING() { //todo consider refactoring 1. WAITING 2. MOVING
         //        private Model model;
         private Cell cell;
 
@@ -26,9 +26,9 @@ public enum ControllerState implements State<Controller> {
                         assert cell != null;
                         ctrl.setActiveCell(cell);
                         assert ctrl.getActiveCell() != null;
-                        ctrl.stateMachine.changeState(WHITE_MOVING);
+                        ctrl.stateMachine.changeState(MOVING);
                         // todo polish logging
-                        System.out.println("Log: state changed to WHITE_MOVING");
+                        System.out.println("Log: state changed to SELF moving");
                         return true;
                     }
                 }
@@ -37,7 +37,7 @@ public enum ControllerState implements State<Controller> {
         }
 
     },
-    WHITE_MOVING() {
+    MOVING() {
         private Cell cell;
         private Cell from;
 
@@ -55,23 +55,27 @@ public enum ControllerState implements State<Controller> {
             // IF clicked on same cell , abort movement
             if (cell.equals(from)) {
                 ctrl.setActiveCell(null);
-                ctrl.stateMachine.changeState(WHITE_WAIT);
+                ctrl.stateMachine.changeState(WAITING);
                 //todo polish logging
-                System.out.println("Log: state changed to WHITE_WAIT");
+                System.out.println("Log: state changed to SELF wait");
                 return true;
             } else {
                 // IF piece can move here
                 if (from.canArriveTo(cell)) {
                     boolean b = cell.moveHere(from);
-                    System.out.println("!!! bbb "+((b)?"moved":"notMoved"));
+//                    System.out.println("!!! bbb "+((b)?"moved":"notMoved")); //todo delete me
                     ctrl.setActiveCell(null);
-                    ctrl.stateMachine.changeState(BLACK_WAIT);
+                    ctrl.switchPlayer();
+                    ctrl.stateMachine.changeState(WAITING);
                     //todo polish logging
-                    System.out.println("Log: state changed to BLACK_WAIT");
+                    System.out.println("Log: state changed to OPPONENT wait");
+                    System.out.println("Log: player changed");
                     return true;
                 } else { // abort movement
                     ctrl.setActiveCell(null);
-                    ctrl.stateMachine.changeState(WHITE_WAIT);
+                    ctrl.stateMachine.changeState(WAITING);
+                    //todo polish logging
+                    System.out.println("Log: state changed to SELF wait");
                     return false;
                 }
             }
@@ -91,32 +95,4 @@ public enum ControllerState implements State<Controller> {
         }
 
     },
-    BLACK_WAIT() {
-        @Override
-        public void update(Controller controller) {
-
-        }
-
-        @Override
-        public boolean onEvent(Controller var, Pos pos) {
-            return false;
-        }
-
-
-    },
-
-    BLACK_MOVING() {
-        @Override
-        public void update(Controller controller) {
-
-        }
-
-        @Override
-        public boolean onEvent(Controller var, Pos pos) {
-            return false;
-        }
-
-    }
-
-
 }

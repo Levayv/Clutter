@@ -1,15 +1,14 @@
 package am.levayv.testing.claio.chess.model.piece;
 
-import am.levayv.testing.claio.chess.model.Board;
 import am.levayv.testing.claio.chess.model.Cell;
-import am.levayv.testing.claio.chess.model.piece.data.Owner;
+import am.levayv.testing.claio.chess.model.piece.data.Color;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
 
 import java.util.HashSet;
 
 public abstract class Piece {
     private ChessMan type;
-    private Owner owner;
+    private Color owner;
 //    private View view; //todo delete
     private HashSet<Cell> availableMoves;
     // todo cellBuffer write info comment
@@ -21,7 +20,7 @@ public abstract class Piece {
     private int uId = 0; // "=0" is redundant AFAIK
     private static int count = 0; // "=0" is redundant AFAIK
 
-    public Piece(Owner owner) {
+    public Piece(Color owner) {
         this.owner = owner;
         this.type = initType();
         this.availableMoves = new HashSet<Cell>();
@@ -34,15 +33,19 @@ public abstract class Piece {
     }
 
     protected abstract ChessMan initType();
-    //refactor view to cell
+    //todo OUTDATED refactor view to cell
 
 
     public boolean canMove(Cell currentCell){
+        // todo bug and logic optimisation needed
+        // 1. update available moves NOT on every piece selection
+        //      on every piece movement CONSIDER AI & STATS classes
         updateAvailableMoves(currentCell, availableMoves);
         return !availableMoves.isEmpty();
     }
     public boolean canArrive(Cell destination){
-        //todo delete me
+        //todo clear available moves
+
 //        System.out.println("!!! 1");
 //        assert destination != null;
 //        assert availableMoves != null;
@@ -60,9 +63,9 @@ public abstract class Piece {
     }
 
     public boolean isWhite() { //todo reconsider refactoring
-        return owner.equals(Owner.WHITE);
+        return owner.equals(Color.WHITE);
     }
-    public Owner getOwner() { //todo reconsider refactoring
+    public Color getOwner() { //todo reconsider refactoring (PLAYER >>> COLOR)
         return owner;
     }
 

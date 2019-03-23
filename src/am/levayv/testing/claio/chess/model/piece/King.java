@@ -1,12 +1,12 @@
 package am.levayv.testing.claio.chess.model.piece;
 
 import am.levayv.testing.claio.chess.model.Cell;
-import am.levayv.testing.claio.chess.model.piece.data.Owner;
+import am.levayv.testing.claio.chess.model.piece.data.Color;
 
 import java.util.HashSet;
 
 public class King extends Piece {
-    public King(Owner owner) {
+    public King(Color owner) {
         super(owner);
     }
 

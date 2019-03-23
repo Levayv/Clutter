@@ -1,7 +1,7 @@
 package am.levayv.testing.claio.chess.model;
 
 import am.levayv.testing.claio.chess.model.piece.Piece;
-import am.levayv.testing.claio.chess.model.piece.data.Owner;
+import am.levayv.testing.claio.chess.model.piece.data.Color;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -62,14 +62,14 @@ public class Cell {
     public View getView(){ return this.view; }
     public void updateView(){
         if (isOccupied()){
-            view.icon = piece.getType().getIcon(piece.getOwner() == Owner.WHITE);
-            view.letter = piece.getType().getLetter(piece.getOwner() == Owner.WHITE);
+            view.icon = piece.getType().getIcon(piece.getOwner() == Color.WHITE);
+            view.letter = piece.getType().getLetter(piece.getOwner() == Color.WHITE);
         } else {
             view.setEmpty();
         }
     }
 
-    public boolean isMine(Owner owner){
+    public boolean isMine(Color owner){
         return piece.getOwner().equals(owner);
     }
     public Piece piece;

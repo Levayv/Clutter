@@ -1,9 +1,8 @@
 package am.levayv.testing.claio.chess.model;
 
-import am.levayv.testing.claio.chess.model.piece.data.Owner;
+import am.levayv.testing.claio.chess.model.piece.data.Color;
 import am.levayv.testing.claio.chess.model.piece.*;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
-import com.sun.istack.internal.NotNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -92,38 +91,38 @@ public class Board {
         //          easy traversal for each piece on board
         // todo pieces not in play must be removed from arrays ?
         //
-        pieces.add(cell[4][0].initialAdd(new King(Owner.WHITE)));
-        pieces.add(cell[4][7].initialAdd(new King(Owner.BLACK)));
-        pieces.add(cell[3][0].initialAdd(new Queen(Owner.WHITE)));
-        pieces.add(cell[3][7].initialAdd(new Queen(Owner.BLACK)));
-        pieces.add(cell[0][0].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[7][0].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[0][7].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[7][7].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[2][0].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[5][0].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[2][7].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[5][7].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[1][0].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[6][0].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[1][7].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[6][7].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[0][1].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[1][1].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[2][1].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[3][1].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[4][1].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[5][1].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[6][1].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[7][1].initialAdd(new Pawn(Owner.WHITE)));
-        pieces.add(cell[0][6].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[1][6].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[2][6].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[3][6].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[6][6].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[7][6].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[5][6].initialAdd(new Pawn(Owner.BLACK)));
-        pieces.add(cell[4][6].initialAdd(new Pawn(Owner.BLACK)));
+        pieces.add(cell[4][0].initialAdd(new King(Color.WHITE)));
+        pieces.add(cell[4][7].initialAdd(new King(Color.BLACK)));
+        pieces.add(cell[3][0].initialAdd(new Queen(Color.WHITE)));
+        pieces.add(cell[3][7].initialAdd(new Queen(Color.BLACK)));
+        pieces.add(cell[0][0].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[7][0].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[0][7].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[7][7].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[2][0].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[5][0].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[2][7].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[5][7].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[1][0].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[6][0].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[1][7].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[6][7].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[0][1].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[1][1].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[2][1].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[3][1].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[4][1].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[5][1].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[6][1].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[7][1].initialAdd(new Pawn(Color.WHITE)));
+        pieces.add(cell[0][6].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[1][6].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[2][6].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[3][6].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[6][6].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[7][6].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[5][6].initialAdd(new Pawn(Color.BLACK)));
+        pieces.add(cell[4][6].initialAdd(new Pawn(Color.BLACK)));
     }
 
     @Deprecated // //STOPSHIP research assert
