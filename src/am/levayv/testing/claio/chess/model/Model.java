@@ -1,5 +1,6 @@
 package am.levayv.testing.claio.chess.model;
 
+import am.levayv.testing.claio.chess.model.fsm.Controller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +25,7 @@ public class Model { //aka root , AFAIK domain model
 
     public Board board;
     // movement prototype //todo IMF
-    private Round round = new Round();
+    public Controller controller = new Controller();
 
 
 //    @Deprecated

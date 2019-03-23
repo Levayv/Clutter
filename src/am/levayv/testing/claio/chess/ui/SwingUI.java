@@ -4,6 +4,7 @@ package am.levayv.testing.claio.chess.ui;
 
 import am.levayv.testing.claio.chess.core.swing.SwingApp;
 import am.levayv.testing.claio.chess.model.Model;
+import am.levayv.testing.claio.chess.model.piece.data.Pos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,50 +20,58 @@ public class SwingUI extends AbstractUI {
     private JPanel mainPanel;
 
     private final Border border = BorderFactory.createLineBorder(Color.GRAY, 1);
+    private final Border moveActiveBorder = BorderFactory.createLineBorder(Color.CYAN, 1);
+    private final Border moveCandidateBorder = BorderFactory.createLineBorder(Color.YELLOW, 1);
     private final Font font = new Font("Dialog", Font.BOLD, 44);
-    private final Color BLACK_BOARD = new Color(204,204,204);
+    private final Color BLACK_BOARD = new Color(204, 204, 204);
     private final Color WHITE_BOARD = new Color(153, 153, 153);
-    private final short buttonWidth   = 50;
-    private final short buttonHeight  = 50;
+    private final short buttonWidth = 50;
+    private final short buttonHeight = 50;
 
     private SwingCell[][] buttons = new SwingCell[size][size];
-    private ArrayList<SwingCell> buttonList = new ArrayList<SwingCell>();
+    private final ArrayList<SwingCell> buttonList = new ArrayList<SwingCell>();
+
     public SwingUI(SwingApp app, JPanel mainPanel, Model model) {
         super(model);
         this.mainPanel = mainPanel;
-        mainPanel.setLayout(new GridLayout(size,size));
-        for (int i = size-1 ; i >= 0; i--) {
-//            for (int j = 0; j < size; j++) {
-            for (int j = size-1; j >= 0; j--) {
+        mainPanel.setLayout(new GridLayout(size, size));
+        for (int j = 0; j < size; j++) {
+            for (int i = 0; i < size; i++) {
+//            for (int i = size - 1; i >= 0; i--) {
+//        for (int j = 0; j < size; j++) {
+//            for (int j = size - 1; j >= 0; j--) {
                 buttons[i][j] = new SwingCell();
                 buttons[i][j].setText(" ");
                 buttons[i][j].setHorizontalAlignment(SwingConstants.CENTER);
                 buttons[i][j].setVerticalAlignment(SwingConstants.CENTER);
                 buttons[i][j].setBorder(border);
                 buttons[i][j].setFont(font);
-                if ((i+j)%2==0) {
+                if ((i + j) % 2 == 0) {
                     buttons[i][j].setBackground(BLACK_BOARD);
-                }
-                else {
+                } else {
                     buttons[i][j].setBackground(WHITE_BOARD);
                 }
                 buttons[i][j].setFocusPainted(false);
                 buttons[i][j].addActionListener(app);
                 // buttons[i][j].addMouseListener(this); todo research ActionPerformed vs MouseClick event
-                buttons[i][j].setActionCommand(i+""+j);
-                buttons[i][j].setToolTipText(i + " " + j); // todo change to Pos.toString()
-//                buttons[i][j].setToolTipText(Pos.toCellName(i,j));
+                buttons[i][j].setActionCommand(i + "" + j);
+//                buttons[i][j].setToolTipText(i + " " + j); // todo change to Pos.toString()
+                buttons[i][j].setToolTipText(i + "" + j + "/" + Pos.toCellName(i, j));
                 buttons[i][j].setMinimumSize(new Dimension(buttonWidth, buttonHeight));
                 buttons[i][j].setPreferredSize(new Dimension(buttonWidth, buttonHeight));
                 buttons[i][j].setMaximumSize(new Dimension(buttonWidth, buttonHeight));
                 // we got reference of corresponding cell
-                buttons[i][j].cell = model.board.getCell(i,j);
+                buttons[i][j].cell = model.board.getCell(i, j);
+                buttonList.add(buttons[i][j]);
             }
         }
-        for (int i = size-1 ; i >= 0; i--) {
-            for (int j = 0; j < size; j++) {
+//        for (int i = size - 1; i >= 0; i--) {
+        for (int j = size - 1; j >= 0; j--) {
+            for (int i = 0; i < size; i++) {
+//                for (int j = 0; j < size; j++) {
+
                 mainPanel.add(buttons[i][j]);
-                buttonList.add(buttons[i][j]);
+
 //                buttons[i][j].setText(i+""+j);
 //                System.out.println("!!! 2d " + buttons[i][j].getText());
             }
@@ -72,17 +81,47 @@ public class SwingUI extends AbstractUI {
 //        System.out.println("!!! Al " + buttonList.get(2).getText());
 //        System.out.println("!!! Al " + buttonList.get(3).getText());
 //        System.out.println("!!! Al " + buttonList.get(4).getText());
+//        System.out.println("!!! BUG1 ");
+//        System.out.println("!!! BUG2 "+model.board.getCell(0,0).getView().letter);
+        model.board.setUpPieces();
+//        System.out.println("!!! BUG3 "+model.board.getCell(0,0).getView().letter);
+
+        this.update();
     }
 
     @Override
-    public void processInput(Object e) {
-        log.info("processInput arg (hashCode) = " + e.hashCode());
-        System.out.println("!");
-        this.update();
-        ActionEvent e2 = (ActionEvent) e;
-        int t = Integer.valueOf(e2.getActionCommand());
-        int h = t / 10, w = t % 10;     //get coordinates from input
-        System.out.print("Field: " + h + "" + w + " ");
+    public void processInput(Object event) { //todo try catch ?
+        if (event != null) { //todo optimise
+            if (event instanceof ActionEvent) {
+                ActionEvent actionEvent = (ActionEvent) event;
+                if (actionEvent.getActionCommand() != null) {
+                    if (!actionEvent.getActionCommand().isEmpty()) {
+                        //get coordinates from input
+                        int t = Integer.valueOf(actionEvent.getActionCommand());
+                        int x = t / 10, y = t % 10;
+                        //todo beatify console output
+                        log.info("Selected Field: "
+                                + x + " " + y + " " + Pos.toCellName(x, y) + " "
+                                + ((Model.getInstance().board.getCell(x,y).piece != null)
+                                ? Model.getInstance().board.getCell(x,y).piece.getType().name()
+                                : "NO PIECE")
+                        );
+                        model.controller.handleEventAt(new Pos(x, y));
+
+                        // update all buttons
+                        this.update();
+                    } else {
+                        log.info("processing Input : can't handle input , event is not cell button command ");
+                    }
+                } else {
+                    log.info("processing Input : can't handle input , event's command is null");
+                }
+            } else {
+                log.info("processing Input : can't handle input , event is Unknown");
+            }
+        } else {
+            log.info("processing Input : can't handle input , event is NULL");
+        }
 
         //todo REMOVE THIS - gist from older version
         //        if (button[h][w].Piece.real) System.out.print(" real ");
@@ -101,14 +140,45 @@ public class SwingUI extends AbstractUI {
 
     @Override
     public void update() {
+        log.info("Updated");
         for (SwingCell button :
                 buttonList) {
-            String buffer = String.valueOf(button.getView().icon);
-            button.setText(buffer);
+//            System.out.println("!!! 123 B" + ((button!=null)?"true":"false"));
+//            System.out.println("!!! 123 C" + ((button.cell!=null)?"true":"false"));
+//            System.out.println("!!! 123 V" + ((button.cell.getView()!=null)?"true":"false"));
+//            if (button.cell.getView()==null){
+//                System.out.println("!!! Boom Pre - "
+//                        + button.cell.pos.x + "/"
+//                        + button.cell.pos.y
+//                );
+//            }
+//            System.out.println("!!! 123 I" + ((button.cell.getView().icon!=0)?"true":"false"));
+            String stringBuffer = String.valueOf(button.cell.getView().icon);
+            button.setText(stringBuffer);
+
+            if (button.cell.getView().isActive()){
+                button.setBorder(moveActiveBorder);
+            } else {
+                if (button.cell.getView().isCandidate()){
+                    button.setBorder(moveCandidateBorder);
+                }else {
+                    button.setBorder(border);
+                }
+            }
+
+
+
+
+//            if (button.cell.isActive()){
+//                button.setBorder(moveActiveBorder);
+//            }else {
+//                button.setBorder(border);
+//            }
+
         }
-        System.out.println("!!!");
-        System.out.println("!!! " + buttons[5][5].getView().icon);
-        buttons[5][5].setText("!");
+
+
+
 
 //        for (int i = size-1 ; i >= 0; i--) {
 //            for (int j = 0; j < size; j++) {

@@ -1,24 +1,30 @@
 package am.levayv.testing.claio.chess.model.piece;
 
-import am.levayv.testing.claio.chess.model.View;
+import am.levayv.testing.claio.chess.model.Board;
+import am.levayv.testing.claio.chess.model.Cell;
 import am.levayv.testing.claio.chess.model.piece.data.Owner;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
+
+import java.util.HashSet;
 
 public abstract class Piece {
     private ChessMan type;
     private Owner owner;
-    private View view;
+//    private View view; //todo delete
+    private HashSet<Cell> availableMoves;
+    // todo cellBuffer write info comment
+    protected Cell cellBuffer;
     /** Piece must NOT have a position , Piece assigned to cell, which had a position (refactor in progress)*/
     @Deprecated
     private Pos pos;
-    //STOPSHIP unique identifier of piece , for testing purposes only
+    //STOPSHIP unique identifier of piece , for pre alpha purposes only
     private int uId = 0; // "=0" is redundant AFAIK
     private static int count = 0; // "=0" is redundant AFAIK
 
     public Piece(Owner owner) {
         this.owner = owner;
         this.type = initType();
-        this.view = initView();
+        this.availableMoves = new HashSet<Cell>();
 
 //        this.view = new View();
 //        this.pos = pos;
@@ -28,26 +34,36 @@ public abstract class Piece {
     }
 
     protected abstract ChessMan initType();
-    private View initView(){
-        char icon = type.getIcon(owner == Owner.WHITE);
-        char letter = type.getLetter(owner == Owner.WHITE);
-        view = new View(icon, letter);
-        System.out.println("!!! init piece test : " + view.icon + " " + view.letter);
-        return view;
+    //refactor view to cell
+
+
+    public boolean canMove(Cell currentCell){
+        updateAvailableMoves(currentCell, availableMoves);
+        return !availableMoves.isEmpty();
+    }
+    public boolean canArrive(Cell destination){
+        //todo delete me
+//        System.out.println("!!! 1");
+//        assert destination != null;
+//        assert availableMoves != null;
+//        assert availableMoves.size() == 1;
+//        assert availableMoves.contains(destination);
+//        System.out.println("!!! 2");
+        return availableMoves.contains(destination);
     }
 
-    public boolean canMove(){
-        // todo IMF - check if current piece got available moves
-        return true;
-    }
+    protected abstract HashSet<Cell> updateAvailableMoves(Cell current , HashSet<Cell> set);
 
     @Deprecated
     public Pos getPos() {
         return pos;
     }
 
-    public boolean isWhite() {
+    public boolean isWhite() { //todo reconsider refactoring
         return owner.equals(Owner.WHITE);
+    }
+    public Owner getOwner() { //todo reconsider refactoring
+        return owner;
     }
 
     public ChessMan getType() {
@@ -59,7 +75,7 @@ public abstract class Piece {
     }
 
 
-    public View getView(){
-        return view;
-    }
+//    public View getView(){
+//        return view;
+//    }
 }

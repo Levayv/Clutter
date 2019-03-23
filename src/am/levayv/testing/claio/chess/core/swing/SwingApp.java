@@ -44,7 +44,6 @@ public class SwingApp extends AbstractApp implements ActionListener {
     @Override
     protected void setUI() {
         this.ui = new SwingUI(this, this.panelMain, this.model);
-        this.ui.update();
     }
 
     @Override
