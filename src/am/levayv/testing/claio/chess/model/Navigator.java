@@ -8,13 +8,11 @@ public class Navigator {
     private static final int size = Board.getSize();
     private static Cell innerCellBuffer;
 
-//    private static HashSet<Cell> cells = new HashSet<Cell>(); // logic bug
+    //    private static HashSet<Cell> cells = new HashSet<Cell>(); // logic bug
     @Deprecated
     public static HashSet<Cell> getCells(HashSet<Cell> cells){
-        cells.clear();
-//        System.out.println("!!! adding dummy cell 5 5");
-        cells.add(Model.getInstance().board.getCell(new Pos(5,5)));
-//        System.out.println("!!! checking dummy cell "+Pos.toCellName(5,5));
+//        cells.clear();
+//        cells.add(Model.getInstance().board.getCell(new Pos(5,5)));
         return cells;
     }
 
@@ -44,7 +42,7 @@ public class Navigator {
                 if (cell.pos.y-1>=0){
                     innerCellBuffer =
                             Model.getInstance().board.getCell(
-                                    cell.pos.x,
+                                    cell.pos.x+0,
                                     cell.pos.y-1 );
                 }break;
             case WEST:
@@ -69,6 +67,5 @@ public class Navigator {
         NORTH_EAST,
         SOUTH_WEST,
         SOUTH_EAST
-
     }
 }

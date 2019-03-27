@@ -1,6 +1,6 @@
-package am.levayv.testing.claio.chess.model.piece;
+package am.levayv.testing.claio.chess.model.piece.data;
 
-public enum ChessMan {
+public enum PieceType { //todo refactor name PieceType ?
 
     // todo (in Progress) BUG , UNICODE icons are color specific !
     // todo (in Progress) BUG , UNICODE not supported inside console
@@ -17,7 +17,7 @@ public enum ChessMan {
     private char iconWhite;
     private char iconBlack;
 
-    ChessMan(char letterWhite, char letterBlack, char iconWhite, char iconBlack) {
+    PieceType(char letterWhite, char letterBlack, char iconWhite, char iconBlack) {
         this.letterWhite = letterWhite;
         this.letterBlack = letterBlack;
         this.iconWhite = iconWhite;

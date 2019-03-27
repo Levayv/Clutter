@@ -1,24 +1,19 @@
 package am.levayv.testing.claio.chess.model;
 
-import am.levayv.testing.claio.chess.model.piece.ChessMan;
-import am.levayv.testing.claio.chess.model.piece.data.Pos;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Deprecated
-/* todo Remove Mask class usage entirely */
 public class Mask {
-    private final int size = Model.getBoardSize();
-    private ChessMan[][] type; //todo refactor enums
-    private boolean[][] isOccupied;
-    private boolean[][] isWhite;
-
+//    private final int size = Model.getBoardSize();
+//    private PieceType[][] type;
+//    private boolean[][] isOccupied;
+//    private boolean[][] isWhite;
+//
 
     public Mask(){
         // allocate everything
-        type      = new ChessMan[size][size];
-        isOccupied    = new boolean[size][size];
-        isWhite     = new boolean[size][size];
+//        type      = new PieceType[size][size];
+//        isOccupied    = new boolean[size][size];
+//        isWhite     = new boolean[size][size];
 
 
 
@@ -30,32 +25,32 @@ public class Mask {
 //        }
 
         // init
-//        for(ChessMan[] someIDRows: id){
-//            for(ChessMan next: someIDRows)
-//                next = ChessMan.PAWN;
+//        for(PieceType[] someIDRows: id){
+//            for(PieceType next: someIDRows)
+//                next = PieceType.PAWN;
 //        }
     }
-
-    public boolean getIsOccupied(Pos pos) {
-        return isOccupied[pos.x][pos.y];
-    }
-
-    public void setIsOccupied(Pos pos, boolean arg) {
-        this.isOccupied[pos.x][pos.y] = arg;
-    }
-
-    public boolean getIsWhite(Pos pos) {
-        return isWhite[pos.x][pos.y];
-    }
-
-    public void setIsWhite(Pos pos, boolean arg) {
-        this.isWhite[pos.x][pos.y] = arg;
-    }
-    public ChessMan getType(Pos pos) {
-        return type[pos.x][pos.y];
-    }
-
-    public void setType(Pos pos, ChessMan arg) {
-        this.type[pos.x][pos.y] = arg;
-    }
+//
+//    public boolean getIsOccupied(Pos pos) {
+//        return isOccupied[pos.x][pos.y];
+//    }
+//
+//    public void setIsOccupied(Pos pos, boolean arg) {
+//        this.isOccupied[pos.x][pos.y] = arg;
+//    }
+//
+//    public boolean getIsWhite(Pos pos) {
+//        return isWhite[pos.x][pos.y];
+//    }
+//
+//    public void setIsWhite(Pos pos, boolean arg) {
+//        this.isWhite[pos.x][pos.y] = arg;
+//    }
+//    public PieceType getType(Pos pos) {
+//        return type[pos.x][pos.y];
+//    }
+//
+//    public void setType(Pos pos, PieceType arg) {
+//        this.type[pos.x][pos.y] = arg;
+//    }
 }

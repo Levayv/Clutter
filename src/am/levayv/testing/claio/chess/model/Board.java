@@ -1,88 +1,75 @@
 package am.levayv.testing.claio.chess.model;
 
+import am.levayv.testing.claio.chess.model.piece.King;
+import am.levayv.testing.claio.chess.model.piece.Pawn;
+import am.levayv.testing.claio.chess.model.piece.Piece;
+import am.levayv.testing.claio.chess.model.piece.Queen;
 import am.levayv.testing.claio.chess.model.piece.data.Color;
-import am.levayv.testing.claio.chess.model.piece.*;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class Board {
-
-    //Board MUST be square , rectangular shapes NOT supported
+    /** Logger */
     private static final Logger log = LogManager.getLogger(Board.class);
+    /** Board MUST be square (8x8 10x10), rectangular(8x10) shapes NOT supported */
     private final static int size = 8;
-    public static int getSize(){return size;}
-//    private final static int pieceCount = 32;
-//    private final static int cellCount = size*size;
+    /** Board MUST have cells equal to square root of size */
     private Cell[][] cell;
-    public Cell getCell(int x, int y){
-        inBoundsAssertion(x,y);
-        return cell[x][y];
-    }
 
-    public Cell getCell(Pos pos){
-        inBoundsAssertion(pos);
-        return cell[pos.x][pos.y];
-    }
+    @Deprecated //todo why pieces needed ? refactor or ...
     public ArrayList<Piece> pieces = new ArrayList<Piece>();
-    public Board(){ // todo is it wise to change size ?
+
+
+    Board() {
         log.info("Init ...");
         cell = new Cell[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                cell[i][j] = new Cell(i,j);
+                cell[i][j] = new Cell(i, j);
             }
         }
         log.info("Init OK");
     }
-    public void traverseCells(){
-        //todo implement ! or move to interface
-    }
-    private void move(){
 
+    public static int getSize() {
+        return size;
     }
-    public void moveFromTo(Pos from , Pos to){
-        // get valid cells
-        // move piece from cell 1 to cell 2
 
+    /**
+     * Returns Cell's reference from board's matrix
+     *
+     * @see #getCellFromMatrix(byte, byte)
+     */
+    public Cell getCell(int x, int y) {
+        return getCellFromMatrix((byte) x, (byte) y);
     }
-    //todo move to Controller
-//    @Deprecated
-//    public boolean moveFrom(Pos from){
-//        Cell cell = getCellByPos(from);
-//        // if else if else with return , i smell bad practice
-//        if (cell.isOccupied()){
-//            if (cell.canMoveThePiece()){ //todo simplify
-//                return true;
-//            } else {
-//                //do nothing
-//                return false;
-//            }
-//        }else {
-//            //do nothing
-//            return false;
-//        }
-//// todo delete me
-////        if (cell.isOccupied() && cell.canMoveThePiece()){
-////            return true;
-////        }else {
-////            return false;
-////        }
-//    }
-    //todo move to Controller
-    @Deprecated
-    public void moveTo(Pos to){
 
+    /**
+     * Returns Cell's reference from board's matrix
+     *
+     * @see #getCellFromMatrix(byte, byte)
+     */
+    public Cell getCell(Pos pos) {
+        return getCellFromMatrix(pos.x, pos.y);
     }
-    // delete helper , used Navigator class
-    private Helper helper = new Helper();
-    //todo find duplicate methods after "move to/from" methods migrate to controller
-    private Cell getCellByPos(Pos pos){
-        return cell[pos.x][pos.y];
+
+    /**
+     * Returns Cell's reference from board's matrix
+     *
+     * @param x ...
+     * @param y ...
+     * @return Cell ...
+     */
+    private Cell getCellFromMatrix(byte x, byte y) {
+        inBoundsAssertion(x,y);
+        return cell[x][y];
     }
-    public void setUpPieces(){ // temp
+
+    //todo refactor temp solution , research needed (save load stance)
+    public void setUpPieces() { // temp
         // pieces are instantiated >>> new Pawn(White), new King(Black)
         // Piece instance references are stored in both
         //      corresponding cell >>> cell[i][j].initialAdd(piece)
@@ -125,22 +112,25 @@ public class Board {
         pieces.add(cell[4][6].initialAdd(new Pawn(Color.BLACK)));
     }
 
-    @Deprecated // //STOPSHIP research assert
-    public static void inBoundsAssertion(byte x , byte y){
+    //STOPSHIP research if-else-if / exception / assert
+    @Deprecated
+    public static void inBoundsAssertion(byte x, byte y) {
         assert x >= 0;
         assert y >= 0;
         assert x < size;
         assert y < size;
     }
-    @Deprecated // //STOPSHIP research assert
-    public static void inBoundsAssertion(int x , int y){
+
+    @Deprecated
+    public static void inBoundsAssertion(int x, int y) {
         assert x >= 0;
         assert y >= 0;
         assert x < size;
         assert y < size;
     }
-    @Deprecated // //STOPSHIP research assert
-    public static void inBoundsAssertion(Pos pos){
+
+    @Deprecated
+    public static void inBoundsAssertion(Pos pos) {
         assert pos.x >= 0;
         assert pos.y >= 0;
         assert pos.x < size;

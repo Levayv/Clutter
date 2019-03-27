@@ -1,19 +1,17 @@
-package am.levayv.testing.claio.chess.model.fsm;
+package am.levayv.testing.claio.chess.model;
 
 
-import am.levayv.testing.claio.chess.model.Cell;
-import am.levayv.testing.claio.chess.model.Model;
+import am.levayv.testing.claio.chess.model.fsm.State;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
 
-public enum ControllerState implements State<Controller> {
+enum ControllerState implements State<Controller> {
 
-    WAITING() { //todo consider refactoring 1. WAITING 2. MOVING
-        //        private Model model;
+    WAITING() {
         private Cell cell;
 
         @Override
         public void update(Controller var1) {
-            // tick tack
+            // tick tack ?
         }
 
         @Override
@@ -21,7 +19,7 @@ public enum ControllerState implements State<Controller> {
             cell = Model.getInstance().board.
                     getCell(pos);
             if (cell.isOccupied()) {
-                if (cell.isMine(ctrl.getOwner())) {
+                if (cell.isMine(ctrl.getCurrentPlayer())) {
                     if (cell.canMoveThePiece()) {
                         assert cell != null;
                         ctrl.setActiveCell(cell);
@@ -35,17 +33,15 @@ public enum ControllerState implements State<Controller> {
             }
             return false;
         }
-
     },
+
     MOVING() {
         private Cell cell;
         private Cell from;
-
         @Override
         public void update(Controller controller) {
-
+            // tick tack ?
         }
-
         @Override
         public boolean onEvent(Controller ctrl, Pos pos) {
             cell = Model.getInstance().board
@@ -62,7 +58,7 @@ public enum ControllerState implements State<Controller> {
             } else {
                 // IF piece can move here
                 if (from.canArriveTo(cell)) {
-                    boolean b = cell.moveHere(from);
+                    boolean b = cell.moveHere(from); //todo refactor , boolean b not needed
 //                    System.out.println("!!! bbb "+((b)?"moved":"notMoved")); //todo delete me
                     ctrl.setActiveCell(null);
                     ctrl.switchPlayer();
@@ -79,20 +75,6 @@ public enum ControllerState implements State<Controller> {
                     return false;
                 }
             }
-//            if (!cell.isOccupied()) { //todo bug ?
-//                if (cell.canArriveHere()){
-//                    from = ctrl.getActiveCell();
-//                    cell.moveHere(from);
-//                    //todo IMF capture
-//                    // todo IMF move piece
-//                    ctrl.stateMachine.changeState(WHITE_WAIT);
-//                    // todo polish logging
-//                    return true;
-//                }
-//            }
-//            ctrl.setActiveCell(null);
-//            return false;
         }
-
-    },
+    }
 }

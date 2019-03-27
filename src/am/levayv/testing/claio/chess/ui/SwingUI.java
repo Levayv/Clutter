@@ -14,7 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class SwingUI extends AbstractUI {
+public class SwingUI extends AbstractUI { //todo logical bug refactor AbstractApp && AbstractUI && Model
     private static final Logger log = LogManager.getLogger(SwingUI.class);
 
     private JPanel mainPanel;
@@ -102,10 +102,12 @@ public class SwingUI extends AbstractUI {
                         //todo beatify console output
                         log.info("Selected Field: "
                                 + x + " " + y + " " + Pos.toCellName(x, y) + " "
-                                + ((Model.getInstance().board.getCell(x,y).piece != null)
-                                ? Model.getInstance().board.getCell(x,y).piece.getType().name()
+                                + ((Model.getInstance().board.getCell(x,y).getView().isOccupied())
+                                ? Model.getInstance().board.getCell(x,y).getView().letter
                                 : "NO PIECE")
                         );
+                        //todo refactor SMELL creating new object each time !
+
                         model.controller.handleEventAt(new Pos(x, y));
 
                         // update all buttons
@@ -141,6 +143,8 @@ public class SwingUI extends AbstractUI {
     @Override
     public void update() {
         log.info("Updated");
+//        System.out.println("!!! !!22"); //todo ASAP
+//        model.board.getCell(0,0).getView(). // todo refactor
         for (SwingCell button :
                 buttonList) {
 //            System.out.println("!!! 123 B" + ((button!=null)?"true":"false"));
@@ -156,7 +160,7 @@ public class SwingUI extends AbstractUI {
             String stringBuffer = String.valueOf(button.cell.getView().icon);
             button.setText(stringBuffer);
 
-            switch (button.cell.getStatus()) { //todo its ugly i know
+            switch (button.cell.getView().getStatus()) { //todo its ugly i know
                 case None:      button.setBorder(border); break;
                 case Active:    button.setBorder(moveActiveBorder); break;
                 case Candidate: button.setBorder(moveCandidateBorder); break;

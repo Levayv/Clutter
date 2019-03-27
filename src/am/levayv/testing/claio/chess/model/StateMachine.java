@@ -1,14 +1,16 @@
-package am.levayv.testing.claio.chess.model.fsm;
+package am.levayv.testing.claio.chess.model;
+
+import am.levayv.testing.claio.chess.model.fsm.State;
 
 class StateMachine<T, S extends State> {
-    private T owner;
+    private T machine;
     private S state;
-    StateMachine(T owner, S state) {
-        this.owner = owner;
+    StateMachine(T machine, S state) {
+        this.machine = machine;
         this.state = state;
     }
-    T getOwner(){ //todo delete
-        return owner;
+    T getMachine(){ //todo delete
+        return machine;
     }
     S getState(){
       return state;

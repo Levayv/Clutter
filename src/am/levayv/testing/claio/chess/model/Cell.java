@@ -6,102 +6,79 @@ import am.levayv.testing.claio.chess.model.piece.data.Pos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Cell {
+public class Cell{
     private static final Logger log = LogManager.getLogger(Cell.class);
 
     // Cell status can be PASSIVE ACTIVE CANDIDATE
-    private Status status = Status.None;
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
+    private CellStatus status = CellStatus.None;
+    @Deprecated //todo research packaging
+    public void setStatus(CellStatus status) {
         this.status = status;
+        this.view.setStatus(status);
     }
 
     // View
     private View view;
 
+    // Pos
+    Pos pos;
 
-    //STOPSHIP unique identifier of piece , for pre alpha purposes only
-    private int uId = 0; // "=0" is redundant AFAIK
-    private static int count = 0;
-    public int getUId() {
-        return uId;
-    }
-
-    // Active cell = cell drag and dropped or first clicked
-//    @Deprecated
-//    private boolean isActive = false;
-//    @Deprecated
-//    public boolean isActive() {
-//        return status.equals(Status.Active);
-//    }
-//    public void setActive(boolean active) {
-//        isActive = active;
-//        view.setActive(active); //todo ASAP active vs status +updateView
-//    }
-
-//    private HashSet<Cell> availableMoves = new HashSet<Cell>();
-
-    public Pos pos;
+    // Piece
+    Piece piece;
 
     // IDIOT POSITIONS ARE NOT DEFINED WHEN CREATING THE GODDAMN CELL !
     Cell(int x , int y) {
-        uId = uId + count;
-        count++;
+        overflowWatchdog();
 
         this.pos = new Pos(x,y); // todo refactor position init
         initView(); //todo refactor
-
     }
     private void initView(){
         view = new View();
-
     }
-    public View getView(){ return this.view; }
-    public void updateView(){
-        if (isOccupied()){
-            view.icon = piece.getType().getIcon(piece.getOwner() == Color.WHITE);
-            view.letter = piece.getType().getLetter(piece.getOwner() == Color.WHITE);
+    public View getView() {
+        return this.view;
+    }
+
+    private void updateView() {
+        if (isOccupied()) {
+            view.icon = piece.getType().getIcon(piece.isWhite());
+            view.letter = piece.getType().getLetter(piece.isWhite());
         } else {
             view.setEmpty();
         }
     }
 
-    public boolean isMine(Color owner){
-        return piece.getOwner().equals(owner);
+    boolean isMine(Color color){
+        return piece.getColor().equals(color);
     }
-    public Piece piece;
-    public boolean canMoveThePiece(){
+    //todo ? migrate to controller
+    boolean canMoveThePiece(){
         if (occupied)
             return piece.canMove(this);
         else
             return false;
     }
-    public boolean canArriveTo(Cell destination){
+    //todo ? migrate to controller
+    boolean canArriveTo(Cell destination){
         return piece.canArrive(destination);
-//        return availableMoves.contains(this);
     }
 
     Piece initialAdd(Piece piece) {
         addPiece(piece);
         updateView();
-//        System.out.println("!!! init piece, view update test : " + uId + " " + view.icon + " " + view.letter);
         return piece;
     }
 
     private boolean occupied;
-    public boolean isOccupied(){
+    boolean isOccupied(){
         return occupied;
     }
+    private void setOccupied(boolean arg){
+        this.occupied = arg;
+        view.setOccupied(arg);
+    }
 
-//    public View getView() {
-//        if (!occupied)
-//            return new View();
-//        else
-//            return piece.getView();
-//    }
     /**
      * Moves Piece from one cell to current cell
      *
@@ -110,7 +87,7 @@ public class Cell {
      * {@code false} otherwise
      * @see #moveHere(Cell sourceCell)
      */
-    public boolean moveHere(Cell sourceCell) {
+    boolean moveHere(Cell sourceCell) {
         //todo add description
         boolean isAddingSuccess = this.addPiece(sourceCell.piece);
         boolean isRemovingSuccess = sourceCell.removePiece();
@@ -128,10 +105,10 @@ public class Cell {
      * {@code false} otherwise
      * @see #moveHere(Cell sourceCell)
      */
-    private boolean addPiece(Piece piece) { //todo use assert ?
-        if (!occupied) {
+    private boolean addPiece(Piece piece) {
+        if (!occupied) { // ? overkill ? use assert
             this.piece = piece;
-            occupied = true;
+            setOccupied(true);
             return true;
         } else {
             return false;
@@ -145,13 +122,28 @@ public class Cell {
      * {@code false} otherwise
      * @see #moveHere(Cell sourceCell)
      */
-    private boolean removePiece() { //todo refactor ? RetType must be Piece object ?
-        if (occupied) {
+    private boolean removePiece() {
+        if (occupied) { // ? overkill ? use assert ?
             this.piece = null;
-            occupied = false;
+            setOccupied(false);
             return true;
         } else {
             return false;
         }
+    }
+    //STOPSHIP unique identifier of Cell , for pre alpha testing purposes only
+    @Deprecated
+    private int uId = 0; // "=0" is redundant AFAIK
+    @Deprecated
+    private static int count = 0;
+    @Deprecated
+    public int getUId() {
+        return uId;
+    }
+    @Deprecated
+    private void overflowWatchdog(){
+        uId = uId + count;
+        count++;
+        assert this.uId < 64;
     }
 }

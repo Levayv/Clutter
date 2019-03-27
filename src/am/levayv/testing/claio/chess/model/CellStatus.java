@@ -1,7 +1,7 @@
 package am.levayv.testing.claio.chess.model;
 
-public enum  Status {
+public enum CellStatus {
     None,
     Active,
-    Candidate;
+    Candidate
 }

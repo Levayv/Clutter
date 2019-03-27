@@ -2,14 +2,14 @@ package am.levayv.testing.claio.chess.model.piece;
 
 import am.levayv.testing.claio.chess.model.Cell;
 import am.levayv.testing.claio.chess.model.piece.data.Color;
+import am.levayv.testing.claio.chess.model.piece.data.PieceType;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
 
 import java.util.HashSet;
 
 public abstract class Piece {
-    private ChessMan type;
-    private Color owner;
-//    private View view; //todo delete
+    private PieceType type;
+    private Color color;
     private HashSet<Cell> availableMoves;
     // todo cellBuffer write info comment
     protected Cell cellBuffer;
@@ -20,19 +20,20 @@ public abstract class Piece {
     private int uId = 0; // "=0" is redundant AFAIK
     private static int count = 0; // "=0" is redundant AFAIK
 
-    public Piece(Color owner) {
-        this.owner = owner;
+    public Piece(Color color) {
+        this.overflowWatchdog();
+        this.color = color;
         this.type = initType();
         this.availableMoves = new HashSet<Cell>();
+
 
 //        this.view = new View();
 //        this.pos = pos;
 
-        uId = uId + count;
-        count++;
     }
 
-    protected abstract ChessMan initType();
+
+    protected abstract PieceType initType();
     //todo OUTDATED refactor view to cell
 
 
@@ -63,20 +64,27 @@ public abstract class Piece {
     }
 
     public boolean isWhite() { //todo reconsider refactoring
-        return owner.equals(Color.WHITE);
+        return color.equals(Color.WHITE);
     }
-    public Color getOwner() { //todo reconsider refactoring (PLAYER >>> COLOR)
-        return owner;
+    public Color getColor() { //todo reconsider refactoring (PLAYER >>> COLOR)
+        return color;
     }
 
-    public ChessMan getType() {
+    public PieceType getType() {
         return type;
     }
 
+    @Deprecated
+    private void overflowWatchdog(){
+        uId = uId + count;
+        count++;
+        assert this.uId < 31;
+    }
+
+    @Deprecated
     public int getUId() {
         return uId;
     }
-
 
 //    public View getView(){
 //        return view;

@@ -2,33 +2,18 @@ package am.levayv.testing.claio.chess.model.piece.data;
 
 import am.levayv.testing.claio.chess.model.Board;
 
-public class Pos {
-    //todo make private, getter setter, when setting update "private String name >> a4 f6 h8 ..."
+public class Pos { //todo reconsider mutation , research needed?
+    // Cells are finite (no more no less then 64) with only one "Pos" composite object
     public byte x;
     public byte y;
-    // main grid positions are 0->7 , -1 out of main grid
 
-    @Deprecated
-    public Pos()
-//            throws Exception
-    {
-        this.x = -1;
-        this.y = -1;
-//        throw new Exception("UncheckedGridValue");
-    }
-
-    public Pos(int x , int y)
-//            throws Exception
-    { //todo check values int <> byte OR refactor constructor
-        //STOPSHIP research assert
+    public Pos(int x , int y){
         Board.inBoundsAssertion(x,y);
         this.x = (byte) x;
         this.y = (byte) y;
-//        throw new Exception("UncheckedGridValue");
     }
-    /** Overloading
-     * //todo what are you overloading darling !
-     * */
+
+    /** static */
     public static String toCellName(int x, int y){
         return toCellName((byte)x , (byte) y);
     }
@@ -36,7 +21,7 @@ public class Pos {
         return toCellName(pos.x , pos.y);
     }
     private static String toCellName(byte x, byte y){
-        // todo test if cases , OR use assertion
+        // todo ? refactor to return new char[2]{xBuffer , yBuffer}
         Board.inBoundsAssertion(x,y);
         char xBuffer;
         char yBuffer;
