@@ -78,7 +78,7 @@ public abstract class Piece {
     private void overflowWatchdog(){
         uId = uId + count;
         count++;
-        assert this.uId < 31;
+        assert this.uId <= 32;
     }
 
     @Deprecated
