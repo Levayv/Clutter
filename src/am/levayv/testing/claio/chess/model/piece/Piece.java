@@ -25,17 +25,10 @@ public abstract class Piece {
         this.color = color;
         this.type = initType();
         this.availableMoves = new HashSet<Cell>();
-
-
-//        this.view = new View();
-//        this.pos = pos;
-
     }
-
 
     protected abstract PieceType initType();
     //todo OUTDATED refactor view to cell
-
 
     public boolean canMove(Cell currentCell){
         // todo bug and logic optimisation needed
@@ -46,17 +39,14 @@ public abstract class Piece {
     }
     public boolean canArrive(Cell destination){
         //todo clear available moves
-
-//        System.out.println("!!! 1");
-//        assert destination != null;
-//        assert availableMoves != null;
-//        assert availableMoves.size() == 1;
-//        assert availableMoves.contains(destination);
-//        System.out.println("!!! 2");
         return availableMoves.contains(destination);
     }
 
-    protected abstract HashSet<Cell> updateAvailableMoves(Cell current , HashSet<Cell> set);
+    protected abstract void updateAvailableMoves(Cell current , HashSet<Cell> set);
+
+    public HashSet<Cell> getAvailableMoves(){
+        return this.availableMoves;
+    }
 
     @Deprecated
     public Pos getPos() {

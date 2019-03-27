@@ -20,14 +20,14 @@ public class Pawn extends Piece {
     }
 
     @Override
-    protected HashSet<Cell> updateAvailableMoves(Cell current , HashSet<Cell> set) {
+    protected void updateAvailableMoves(Cell current , HashSet<Cell> set) {
         //todo IMF - pawns move only 1 cell forward (see steps 2.2 >>> 2.5)
 
         // step 1. Clear previously present cells from set and the buffer
         if (!set.isEmpty()){
-            for (Cell eachCell : set) { //refactor foreach
-                eachCell.setStatus(CellStatus.None);
-            }
+//            for (Cell eachCell : set) { //refactor foreach
+//                eachCell.setStatus(CellStatus.None);
+//            } //todo migrating to controller
             set.clear();
         }
         cellBuffer = null;
@@ -37,7 +37,7 @@ public class Pawn extends Piece {
             // step 2.1 add pawn's "move forward" logic (WHITE)
             cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.NORTH);
             if (cellBuffer!=null){
-                cellBuffer.setStatus(CellStatus.Candidate);
+//                cellBuffer.setStatus(CellStatus.Candidate); //todo migrating to controller
                 set.add(cellBuffer);
             }
             // step 2.2 add pawn's "first double move" logic (WHITE)
@@ -50,7 +50,7 @@ public class Pawn extends Piece {
             // step 2.1 add pawn's "move forward" logic (BLACK)
             cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.SOUTH);
             if (cellBuffer!=null){
-                cellBuffer.setStatus(CellStatus.Candidate);
+//                cellBuffer.setStatus(CellStatus.Candidate); //todo migrating to controller
                 set.add(cellBuffer);
             }
             // step 2.2 add pawn's "first double move" logic (BLACK)
@@ -59,7 +59,5 @@ public class Pawn extends Piece {
             // step 2.5 add "promotion" logic (BLACK)
 
         }
-        return set;
     }
-
 }

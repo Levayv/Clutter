@@ -6,6 +6,8 @@ import am.levayv.testing.claio.chess.model.piece.data.Pos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.HashSet;
+
 public class Cell{
     private static final Logger log = LogManager.getLogger(Cell.class);
 
@@ -63,6 +65,7 @@ public class Cell{
     boolean canArriveTo(Cell destination){
         return piece.canArrive(destination);
     }
+    //todo ? migrate to controller
 
     Piece initialAdd(Piece piece) {
         addPiece(piece);

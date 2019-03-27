@@ -23,6 +23,7 @@ enum ControllerState implements State<Controller> {
                     if (cell.canMoveThePiece()) {
                         assert cell != null;
                         ctrl.setActiveCell(cell);
+                        ctrl.setCandidateCells(cell.piece.getAvailableMoves(),true);
                         assert ctrl.getActiveCell() != null;
                         ctrl.stateMachine.changeState(MOVING);
                         // todo polish logging
@@ -51,6 +52,7 @@ enum ControllerState implements State<Controller> {
             // IF clicked on same cell , abort movement
             if (cell.equals(from)) {
                 ctrl.setActiveCell(null);
+                ctrl.setCandidateCells(cell.piece.getAvailableMoves(),false);
                 ctrl.stateMachine.changeState(WAITING);
                 //todo polish logging
                 System.out.println("Log: state changed to SELF wait");
@@ -59,8 +61,9 @@ enum ControllerState implements State<Controller> {
                 // IF piece can move here
                 if (from.canArriveTo(cell)) {
                     boolean b = cell.moveHere(from); //todo refactor , boolean b not needed
-//                    System.out.println("!!! bbb "+((b)?"moved":"notMoved")); //todo delete me
+                    assert b;
                     ctrl.setActiveCell(null);
+                    ctrl.setCandidateCells(cell.piece.getAvailableMoves(),false);
                     ctrl.switchPlayer();
                     ctrl.stateMachine.changeState(WAITING);
                     //todo polish logging
@@ -69,6 +72,7 @@ enum ControllerState implements State<Controller> {
                     return true;
                 } else { // abort movement
                     ctrl.setActiveCell(null);
+                    ctrl.setCandidateCells(cell.piece.getAvailableMoves(),false);
                     ctrl.stateMachine.changeState(WAITING);
                     //todo polish logging
                     System.out.println("Log: state changed to SELF wait");

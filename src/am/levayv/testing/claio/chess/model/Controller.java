@@ -5,6 +5,8 @@ import am.levayv.testing.claio.chess.model.piece.data.Pos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.HashSet;
+
 // todo Strip/migrate/refactor all controller functionality from others (Model cell board piece)
 // https://github.com/Levayv/Clutter/issues/4
 
@@ -33,13 +35,23 @@ public class Controller {
     Color getCurrentPlayer() {
         return currentPlayer;
     }
+    /** ... for FSM */
+    void switchPlayer() {
+        if (currentPlayer.equals(Color.WHITE))
+            currentPlayer = Color.BLACK;
+        else
+            currentPlayer = Color.WHITE;
+    }
 
     /** ... for FSM */
     Cell getActiveCell() {
         return activeCell;
     }
 
-    /** ... for FSM */
+    /** ... for FSM
+     * Handling assignment and divestment of Cell Status NONE or ACTIVE
+     * NOTE: WTF is divestment , use unassigned instead , it is not Dictionary of fancy words)
+     * */
     void setActiveCell(Cell argCell) {
         if (argCell == null) {
             if (this.activeCell != null) {
@@ -61,13 +73,14 @@ public class Controller {
             }
         }
     }
-
+    //todo get all available moves and updata CELLStatuses
     /** ... for FSM */
-    void switchPlayer() {
-        if (currentPlayer.equals(Color.WHITE))
-            currentPlayer = Color.BLACK;
-        else
-            currentPlayer = Color.WHITE;
+    void setCandidateCells(HashSet<Cell> set , boolean isCandidate){
+        for (Cell cell:
+             set) {
+            cell.setStatus(isCandidate ? CellStatus.Candidate : CellStatus.None);
+            System.out.println("!!!"+cell.getView().letter);
+        }
     }
 
     public void handleEventAt(Pos pos) { //todo add logger or NOT ?

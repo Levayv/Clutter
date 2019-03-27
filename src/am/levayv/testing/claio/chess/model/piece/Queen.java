@@ -17,8 +17,8 @@ public class Queen extends Piece {
     }
 
     @Override
-    protected HashSet<Cell> updateAvailableMoves(Cell current , HashSet<Cell> set) {
-        return null;
+    protected void updateAvailableMoves(Cell current , HashSet<Cell> set) {
+
     }
 
 }

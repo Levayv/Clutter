@@ -6,6 +6,7 @@ import am.levayv.testing.claio.chess.model.piece.Piece;
 import am.levayv.testing.claio.chess.model.piece.Queen;
 import am.levayv.testing.claio.chess.model.piece.data.Color;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
+import com.sun.istack.internal.NotNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
