@@ -2,6 +2,7 @@ package am.levayv.testing.claio.chess.model.piece;
 
 import am.levayv.testing.claio.chess.model.Cell;
 import am.levayv.testing.claio.chess.model.Model;
+import am.levayv.testing.claio.chess.model.Navigator;
 import am.levayv.testing.claio.chess.model.piece.data.Color;
 import am.levayv.testing.claio.chess.model.piece.data.PieceType;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
@@ -88,6 +89,23 @@ public abstract class Piece {
             availableMoves.add(cell);
         }
         return collision;
+    }
+    protected boolean baseTraversal(Cell cell, Navigator.Dir dir){
+        // reset cellBuffer reference to current Cell for each direction
+        cellBuffer = cell;
+        // do maximum of 7 runs per direction
+        for (int i = 0; i < 7; i++) { //todo refactor Model.Board.getSize-1 , while vs for
+            cellBuffer = Navigator.getNearbyCellTo(cellBuffer, dir);
+            if (cellBuffer != null) {
+                boolean collision = baseMoveRule(cellBuffer);
+                if (collision) {
+                    break;
+                }
+            } else {
+                break; //todo refactor break >>> continue
+            }
+        }
+        return false; //todo refactor useless ?
     }
     public HashSet<Cell> getAvailableMoves(){
         return this.availableMoves;
