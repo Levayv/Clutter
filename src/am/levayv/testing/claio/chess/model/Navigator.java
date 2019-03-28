@@ -23,6 +23,7 @@ public class Navigator {
      *         null if out of Border's bounds
      * */
     public static synchronized Cell getNearbyCellTo(Cell cell, Dir dir){
+        System.out.println("!!! log Navigator cell is " + Pos.toCellName(cell.pos) + "...");
         innerCellBuffer = null;
         switch (dir){
             case NORTH:
@@ -56,6 +57,7 @@ public class Navigator {
             case SOUTH_EAST:
                 break;
         }
+        System.out.println("!!! log Navigator cell is " + Pos.toCellName(cell.pos) + "OK");
         return innerCellBuffer;
     }
     public static enum Dir{

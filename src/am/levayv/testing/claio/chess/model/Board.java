@@ -70,7 +70,7 @@ public class Board {
     }
 
     //todo refactor temp solution , research needed (save load stance)
-    public void setUpPieces() { // temp
+    void setUpPieces() { // temp
         // pieces are instantiated >>> new Pawn(White), new King(Black)
         // Piece instance references are stored in both
         //      corresponding cell >>> cell[i][j].initialAdd(piece)

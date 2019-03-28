@@ -83,9 +83,11 @@ public class SwingUI extends AbstractUI { //todo logical bug refactor AbstractAp
 //        System.out.println("!!! Al " + buttonList.get(4).getText());
 //        System.out.println("!!! BUG1 ");
 //        System.out.println("!!! BUG2 "+model.board.getCell(0,0).getView().letter);
-        model.board.setUpPieces();
 //        System.out.println("!!! BUG3 "+model.board.getCell(0,0).getView().letter);
 
+        // todo refactoring
+        // model.board.setUpPieces();
+        model.controller.setUp(null);
         this.update();
     }
 
@@ -143,8 +145,6 @@ public class SwingUI extends AbstractUI { //todo logical bug refactor AbstractAp
     @Override
     public void update() {
         log.info("Updated");
-//        System.out.println("!!! !!22"); //todo ASAP
-//        model.board.getCell(0,0).getView(). // todo refactor
         for (SwingCell button :
                 buttonList) {
 //            System.out.println("!!! 123 B" + ((button!=null)?"true":"false"));

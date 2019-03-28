@@ -36,6 +36,7 @@ public class Pawn extends Piece {
             // move logic to North
             // step 2.1 add pawn's "move forward" logic (WHITE)
             cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.NORTH);
+            // Navigator returns null if out of Board's bounds
             if (cellBuffer!=null){
 //                cellBuffer.setStatus(CellStatus.Candidate); //todo migrating to controller
                 set.add(cellBuffer);

@@ -13,8 +13,8 @@ public class Cell{
 
     // Cell status can be PASSIVE ACTIVE CANDIDATE
     private CellStatus status = CellStatus.None;
-    @Deprecated //todo research packaging
-    public void setStatus(CellStatus status) {
+    @Deprecated //todo research packaging. DONE , test it
+    void setStatus(CellStatus status) {
         this.status = status;
         this.view.setStatus(status);
     }
@@ -26,7 +26,10 @@ public class Cell{
     Pos pos;
 
     // Piece
-    Piece piece;
+    private Piece piece;
+    public Piece getPiece(){
+        return piece;
+    }
 
     // IDIOT POSITIONS ARE NOT DEFINED WHEN CREATING THE GODDAMN CELL !
     Cell(int x , int y) {
@@ -51,13 +54,14 @@ public class Cell{
         }
     }
 
-    boolean isMine(Color color){
+    public boolean isMine(Color color){
         return piece.getColor().equals(color);
     }
     //todo ? migrate to controller
+    /** ... if piece exist (can be empty cell) */
     boolean canMoveThePiece(){
         if (occupied)
-            return piece.canMove(this);
+            return piece.canMove();
         else
             return false;
     }
@@ -68,6 +72,7 @@ public class Cell{
     //todo ? migrate to controller
 
     Piece initialAdd(Piece piece) {
+        piece.setAlive(true);
         addPiece(piece);
         updateView();
         return piece;
@@ -90,8 +95,12 @@ public class Cell{
      * {@code false} otherwise
      * @see #moveHere(Cell sourceCell)
      */
-    boolean moveHere(Cell sourceCell) {
+    boolean moveHere(Cell sourceCell) { //todo bug "remove then add" or "add then remove"
         //todo add description
+        // step 1 remove enemy piece if present in THIS
+        // step 2 add piece to THIS from SOURCE
+        // step 3 remove piece from SOURCE
+
         boolean isAddingSuccess = this.addPiece(sourceCell.piece);
         boolean isRemovingSuccess = sourceCell.removePiece();
 
@@ -109,13 +118,17 @@ public class Cell{
      * @see #moveHere(Cell sourceCell)
      */
     private boolean addPiece(Piece piece) {
-        if (!occupied) { // ? overkill ? use assert
-            this.piece = piece;
-            setOccupied(true);
-            return true;
-        } else {
-            return false;
+        if (occupied) { // move and capture
+            assert this.piece.getColor() != piece.getColor();
+            this.piece.setOccupyingCell(null);
+            this.piece.setAlive(false);
+            this.piece = null; // useless ?
+        } else { // move only
+            this.setOccupied(true);
         }
+        this.piece = piece;
+        this.piece.setOccupyingCell(this);
+        return true;
     }
 
     /**
@@ -126,14 +139,20 @@ public class Cell{
      * @see #moveHere(Cell sourceCell)
      */
     private boolean removePiece() {
-        if (occupied) { // ? overkill ? use assert ?
-            this.piece = null;
-            setOccupied(false);
-            return true;
-        } else {
-            return false;
-        }
+        assert occupied;
+        this.piece = null;
+        setOccupied(false);
+        return true;
     }
+//    private boolean killPiece(){
+//        if (occupied){
+//            this.piece.setAlive(false);
+//            this.piece.setOccupyingCell(null);
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
     //STOPSHIP unique identifier of Cell , for pre alpha testing purposes only
     @Deprecated
     private int uId = 0; // "=0" is redundant AFAIK

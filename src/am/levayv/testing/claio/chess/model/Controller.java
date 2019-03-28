@@ -1,10 +1,13 @@
 package am.levayv.testing.claio.chess.model;
 
+import am.levayv.testing.claio.chess.model.piece.Piece;
 import am.levayv.testing.claio.chess.model.piece.data.Color;
+import am.levayv.testing.claio.chess.model.piece.data.PieceType;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 // todo Strip/migrate/refactor all controller functionality from others (Model cell board piece)
@@ -18,7 +21,9 @@ public class Controller {
 
     private static final Logger log = LogManager.getLogger(Controller.class);
     /** Player's turn BLACK or WHITE*/
-    private Color currentPlayer = Color.WHITE;
+    // default black, after setting pieces on board inside this.load() method
+    // this.switchPlayer must trigger available move update
+    private Color currentPlayer = Color.BLACK;
     /** Previously clicked Cell reference during MOVING state , null during WAITING */
     private Cell activeCell; // which cell's piece to move on click
     /** Minimal State Machine for handling MOVING WAITING logic*/
@@ -41,6 +46,20 @@ public class Controller {
             currentPlayer = Color.BLACK;
         else
             currentPlayer = Color.WHITE;
+        //crude implementation , optimise update for each color separably
+        ArrayList<Piece> pieces =  Model.getInstance().board.pieces;
+        for (Piece piece :
+                pieces) {
+            // only if Piece is Pawn, for now
+            if (piece.getType().equals(PieceType.PAWN)){
+                piece.updateAvailableMoves(piece.getOccupyingCell());
+//                System.out.println("!!! check successful for piece " +
+//                        piece.getType().getIcon(piece.isWhite()) +
+//                        ((piece.isWhite())?" W":" B") +
+//                        " uID = "+piece.getUId()
+//                );
+            }
+        }
     }
 
     /** ... for FSM */
@@ -79,7 +98,7 @@ public class Controller {
         for (Cell cell:
              set) {
             cell.setStatus(isCandidate ? CellStatus.Candidate : CellStatus.None);
-            System.out.println("!!!"+cell.getView().letter);
+//            System.out.println("!!!"+cell.getView().letter);
         }
     }
 
@@ -88,5 +107,13 @@ public class Controller {
         stateMachine.getState().onEvent(this, pos);
     }
 
+    // temp
+    public void setUp(Pos pos){ //refactor name load ?
+        //todo create new Class Position/Stance
+        assert pos == null;
+
+        Model.getInstance().board.setUpPieces();
+        switchPlayer();
+    }
 
 }
