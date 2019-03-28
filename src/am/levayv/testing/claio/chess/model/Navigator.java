@@ -1,6 +1,7 @@
 package am.levayv.testing.claio.chess.model;
 
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
+import com.sun.istack.internal.NotNull;
 
 import java.util.HashSet;
 
@@ -23,14 +24,11 @@ public class Navigator {
      *         null if out of Border's bounds
      * */
     public static synchronized Cell getNearbyCellTo(Cell cell, Dir dir){
-        System.out.println("!!! log Navigator cell is " + Pos.toCellName(cell.pos) + "...");
+        assert cell!=null;
+//        System.out.println("!!! log Navigator cell is " + Pos.toCellName(cell.pos) + "...");
         innerCellBuffer = null;
         switch (dir){
             case NORTH:
-//                if (cell!=null)
-//                    System.out.println("!!! ok");
-//                else
-//                    System.out.println("!!! null");
                 if (cell.pos.y+1<size){
                     innerCellBuffer =
                             Model.getInstance().board.getCell(
@@ -49,15 +47,24 @@ public class Navigator {
             case WEST:
                 break;
             case NORTH_WEST:
-                break;
+                if (cell.pos.y+1<size && cell.pos.x-1>=0){
+                    innerCellBuffer =
+                            Model.getInstance().board.getCell(
+                                    cell.pos.x-1,
+                                    cell.pos.y+1 );
+                }break;
             case NORTH_EAST:
-                break;
+                if (cell.pos.y+1<size && cell.pos.x+1<size){
+                    innerCellBuffer =
+                            Model.getInstance().board.getCell(
+                                    cell.pos.x+1,
+                                    cell.pos.y+1 );
+                }break;
             case SOUTH_WEST:
                 break;
             case SOUTH_EAST:
                 break;
         }
-        System.out.println("!!! log Navigator cell is " + Pos.toCellName(cell.pos) + "OK");
         return innerCellBuffer;
     }
     public static enum Dir{

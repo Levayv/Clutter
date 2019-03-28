@@ -61,7 +61,7 @@ public class SwingUI extends AbstractUI { //todo logical bug refactor AbstractAp
                 buttons[i][j].setPreferredSize(new Dimension(buttonWidth, buttonHeight));
                 buttons[i][j].setMaximumSize(new Dimension(buttonWidth, buttonHeight));
                 // we got reference of corresponding cell
-                buttons[i][j].cell = model.board.getCell(i, j);
+                buttons[i][j].cellView = model.board.getCell(i, j).getView();
                 buttonList.add(buttons[i][j]);
             }
         }
@@ -157,10 +157,10 @@ public class SwingUI extends AbstractUI { //todo logical bug refactor AbstractAp
 //                );
 //            }
 //            System.out.println("!!! 123 I" + ((button.cell.getView().icon!=0)?"true":"false"));
-            String stringBuffer = String.valueOf(button.cell.getView().icon);
+            String stringBuffer = String.valueOf(button.cellView.icon);
             button.setText(stringBuffer);
 
-            switch (button.cell.getView().getStatus()) { //todo its ugly i know
+            switch (button.cellView.getStatus()) { //todo its ugly i know
                 case None:      button.setBorder(border); break;
                 case Active:    button.setBorder(moveActiveBorder); break;
                 case Candidate: button.setBorder(moveCandidateBorder); break;

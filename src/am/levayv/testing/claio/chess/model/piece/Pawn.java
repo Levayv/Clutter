@@ -36,13 +36,21 @@ public class Pawn extends Piece {
             // move logic to North
             // step 2.1 add pawn's "move forward" logic (WHITE)
             cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.NORTH);
-            // Navigator returns null if out of Board's bounds
-            if (cellBuffer!=null){
-//                cellBuffer.setStatus(CellStatus.Candidate); //todo migrating to controller
-                set.add(cellBuffer);
-            }
-            // step 2.2 add pawn's "first double move" logic (WHITE)
+            if (cellBuffer!=null)
+                if (!cellBuffer.isOccupied())
+                    set.add(cellBuffer);
             // step 2.3 add left right diagonal "attack move" logic (WHITE)
+            cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.NORTH_EAST);
+            if (cellBuffer!=null)
+                if (cellBuffer.isOccupied())
+                    if (cellBuffer.isMine(Color.BLACK))
+                        set.add(cellBuffer);
+            cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.NORTH_WEST);
+            if (cellBuffer!=null)
+                if (cellBuffer.isOccupied())
+                    if (cellBuffer.isMine(Color.BLACK))
+                        set.add(cellBuffer);
+            // step 2.2 add "first double move" logic (WHITE)
             // step 2.4 add "in passing" logic (WHITE)
             // step 2.5 add "promotion" logic (WHITE)
 
@@ -54,8 +62,18 @@ public class Pawn extends Piece {
 //                cellBuffer.setStatus(CellStatus.Candidate); //todo migrating to controller
                 set.add(cellBuffer);
             }
-            // step 2.2 add pawn's "first double move" logic (BLACK)
             // step 2.3 add left right diagonal "attack move" logic (BLACK)
+            cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.SOUTH_EAST);
+            if (cellBuffer!=null)
+                if (cellBuffer.isOccupied())
+                    if (cellBuffer.isMine(Color.WHITE))
+                        set.add(cellBuffer);
+            cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.SOUTH_WEST);
+            if (cellBuffer!=null)
+                if (cellBuffer.isOccupied())
+                    if (cellBuffer.isMine(Color.WHITE))
+                        set.add(cellBuffer);
+            // step 2.2 add pawn's "first double move" logic (BLACK)
             // step 2.4 add "in passing" logic (BLACK)
             // step 2.5 add "promotion" logic (BLACK)
 

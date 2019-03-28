@@ -26,7 +26,7 @@ public class Cell{
     Pos pos;
 
     // Piece
-    private Piece piece;
+    Piece piece;
     public Piece getPiece(){
         return piece;
     }
@@ -79,7 +79,7 @@ public class Cell{
     }
 
     private boolean occupied;
-    boolean isOccupied(){
+    public boolean isOccupied(){
         return occupied;
     }
     private void setOccupied(boolean arg){

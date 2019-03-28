@@ -52,15 +52,18 @@ public class Controller {
                 pieces) {
             // only if Piece is Pawn, for now
             if (piece.getType().equals(PieceType.PAWN)){
-                piece.updateAvailableMoves(piece.getOccupyingCell());
+                if (piece.isAlive()){
+                    piece.updateAvailableMoves(piece.getOccupyingCell());
+
+                }
+            }
+        }
+    }
 //                System.out.println("!!! check successful for piece " +
 //                        piece.getType().getIcon(piece.isWhite()) +
 //                        ((piece.isWhite())?" W":" B") +
 //                        " uID = "+piece.getUId()
 //                );
-            }
-        }
-    }
 
     /** ... for FSM */
     Cell getActiveCell() {
