@@ -7,6 +7,9 @@ import am.levayv.testing.claio.chess.model.piece.data.PieceType;
 
 import java.util.HashSet;
 
+//todo bug , clicking on self piece during candidate phase , not clearing candidate cells !
+// find it ~ candidate update logic
+
 public class Knight extends Piece {
     public Knight(Color color) {
         super(color);
@@ -19,13 +22,59 @@ public class Knight extends Piece {
 
     @Override
     protected void updateAvailableMoves(Cell current , HashSet<Cell> set) {
-        //todo IMF - Queen move unlmited cells in any direction , total of 8 directions max 27 !
-        for (Navigator.Dir dir:
-                Navigator.Dir.values()) {
+        //todo IMF - Knight move max 8 cells in L shaped jumps
 
-            // todo IMF static 8 fields no traversal
+        // todo WTF worst solution ever
 
-        }
+        // north south
+        cellBuffer = current;
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.NORTH);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.NORTH);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.EAST);
+        if (cellBuffer!=null) this.baseMoveRule(cellBuffer);
+
+        cellBuffer = current;
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.NORTH);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.NORTH);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.WEST);
+        if (cellBuffer!=null) this.baseMoveRule(cellBuffer);
+
+        cellBuffer = current;
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.SOUTH);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.SOUTH);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.EAST);
+        if (cellBuffer!=null) this.baseMoveRule(cellBuffer);
+
+        cellBuffer = current;
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.SOUTH);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.SOUTH);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.WEST);
+        if (cellBuffer!=null) this.baseMoveRule(cellBuffer);
+
+        // east west
+        cellBuffer = current;
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.EAST);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.EAST);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.NORTH);
+        if (cellBuffer!=null) this.baseMoveRule(cellBuffer);
+
+        cellBuffer = current;
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.EAST);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.EAST);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.SOUTH);
+        if (cellBuffer!=null) this.baseMoveRule(cellBuffer);
+        cellBuffer = current;
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.WEST);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.WEST);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.NORTH);
+        if (cellBuffer!=null) this.baseMoveRule(cellBuffer);
+
+        cellBuffer = current;
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.WEST);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.WEST);
+        if (cellBuffer!=null) cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.SOUTH);
+        if (cellBuffer!=null) this.baseMoveRule(cellBuffer);
+
     }
 
 
