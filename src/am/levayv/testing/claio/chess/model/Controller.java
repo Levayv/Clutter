@@ -53,15 +53,15 @@ public class Controller {
             // only if Piece is Pawn, for now
             // or King
             //
-            if (piece.getType().equals(PieceType.PAWN)
-                    || piece.getType().equals(PieceType.KING)
-                    || piece.getType().equals(PieceType.QUEEN)
+//            if (piece.getType().equals(PieceType.PAWN)
+//                    || piece.getType().equals(PieceType.KING)
+//                    || piece.getType().equals(PieceType.QUEEN)
 
-                    ){
+//                    ){
                 if (piece.isAlive()){
                     piece.updateAvailableMoves(piece.getOccupyingCell());
 
-                }
+//                }
             }
         }
     }

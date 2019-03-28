@@ -6,9 +6,9 @@ public enum PieceType { //todo refactor name PieceType ?
     // todo (in Progress) BUG , UNICODE not supported inside console
 
     PAWN('P', 'p', (char) 0x2659, (char) 0x265F),
-    KNIGHT('N', 'n', (char) 0x0000, (char) 0x0000),
-    BISHOP('B', 'b', (char) 0x0000, (char) 0x0000),
-    ROOK('R', 'r', (char) 0x0000, (char) 0x0000),
+    KNIGHT('N', 'n', (char) 0x2658, (char) 0x265E),
+    BISHOP('B', 'b', (char) 0x2657, (char) 0x265D),
+    ROOK('R', 'r', (char) 0x2656, (char) 0x265C),
     QUEEN('Q', 'q', (char) 0x2655, (char) 0x265B),
     KING('K', 'k', (char) 0x2654, (char) 0x265A);
 
