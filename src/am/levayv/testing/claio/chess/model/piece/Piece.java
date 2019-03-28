@@ -9,7 +9,8 @@ import am.levayv.testing.claio.chess.model.piece.data.Pos;
 import java.util.HashSet;
 
 public abstract class Piece {
-    private boolean isAlive;
+    private boolean isAlive; // todo refactor with default values
+    private boolean isOriginalPos = true;
     private PieceType type;
     private Color color;
     private HashSet<Cell> availableMoves;
@@ -34,6 +35,13 @@ public abstract class Piece {
     public void setAlive(boolean isAlive){
         this.isAlive = isAlive;
     }
+    public boolean isOriginalPos(){
+        return isOriginalPos;
+    }
+    public void setReposed(){
+        this.isOriginalPos = false;
+    }
+
 
     protected abstract PieceType initType();
     //todo OUTDATED refactor view to cell

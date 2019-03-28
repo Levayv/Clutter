@@ -61,9 +61,19 @@ public class Navigator {
                                     cell.pos.y+1 );
                 }break;
             case SOUTH_WEST:
-                break;
+                if (cell.pos.y-1>=0 && cell.pos.x-1>=0){
+                    innerCellBuffer =
+                            Model.getInstance().board.getCell(
+                                    cell.pos.x-1,
+                                    cell.pos.y-1 );
+                }break;
             case SOUTH_EAST:
-                break;
+                if (cell.pos.y-1>=0 && cell.pos.x+1<size){
+                    innerCellBuffer =
+                            Model.getInstance().board.getCell(
+                                    cell.pos.x+1,
+                                    cell.pos.y-1 );
+                }break;
         }
         return innerCellBuffer;
     }

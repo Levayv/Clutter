@@ -104,6 +104,8 @@ public class Cell{
         boolean isAddingSuccess = this.addPiece(sourceCell.piece);
         boolean isRemovingSuccess = sourceCell.removePiece();
 
+        this.piece.setReposed(); //todo optimise, research needed
+
         this.updateView();
         sourceCell.updateView();
 

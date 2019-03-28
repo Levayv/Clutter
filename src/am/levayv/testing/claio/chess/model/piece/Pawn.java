@@ -51,7 +51,14 @@ public class Pawn extends Piece {
                     if (cellBuffer.isMine(Color.BLACK))
                         set.add(cellBuffer);
             // step 2.2 add "first double move" logic (WHITE)
+            if (current.getPiece().isOriginalPos()) { //todo optimise , research needed
+                cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.NORTH);
+                cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.NORTH);
+                if (!cellBuffer.isOccupied())
+                    set.add(cellBuffer);
+            }
             // step 2.4 add "in passing" logic (WHITE)
+                //todo research needed , IMF ghost of Piece in step 2.2
             // step 2.5 add "promotion" logic (WHITE)
 
         } else {
@@ -74,7 +81,12 @@ public class Pawn extends Piece {
                     if (cellBuffer.isMine(Color.WHITE))
                         set.add(cellBuffer);
             // step 2.2 add pawn's "first double move" logic (BLACK)
-            // step 2.4 add "in passing" logic (BLACK)
+            if (current.getPiece().isOriginalPos()) { //todo optimise , research needed
+                cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.SOUTH);
+                cellBuffer = Navigator.getNearbyCellTo(cellBuffer, Navigator.Dir.SOUTH);
+                if (!cellBuffer.isOccupied())
+                    set.add(cellBuffer);
+            }// step 2.4 add "in passing" logic (BLACK)
             // step 2.5 add "promotion" logic (BLACK)
 
         }
