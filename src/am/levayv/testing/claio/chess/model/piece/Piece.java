@@ -60,11 +60,31 @@ public abstract class Piece {
         return availableMoves.contains(destination);
     }
     //todo optimise visibilty
-    protected abstract void updateAvailableMoves(Cell current , HashSet<Cell> set);
     public void updateAvailableMoves(Cell current){
-        updateAvailableMoves(current , this.availableMoves);
+        cellBuffer = null;
+        if (!availableMoves.isEmpty()){
+            availableMoves.clear();
+        }
+        updateAvailableMoves(current , availableMoves);
     }
-
+    protected abstract void updateAvailableMoves(Cell current , HashSet<Cell> set);
+    /** common for everyone except the Pawn */
+    protected void baseMoveRule(Cell cell){
+        assert cell!=null; //todo temp solution
+        if (cell.isOccupied()){
+            // IF occupied
+            if (!cell.isMine(this.getColor())){
+                // IF occupied BY Foe
+                availableMoves.add(cell);
+            } else {
+                // IF occupied BY Friend
+                // do nothing
+            }
+        } else {
+            // IF NOT occupied
+            availableMoves.add(cell);
+        }
+    }
     public HashSet<Cell> getAvailableMoves(){
         return this.availableMoves;
     }

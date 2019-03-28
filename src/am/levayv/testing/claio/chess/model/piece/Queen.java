@@ -1,6 +1,7 @@
 package am.levayv.testing.claio.chess.model.piece;
 
 import am.levayv.testing.claio.chess.model.Cell;
+import am.levayv.testing.claio.chess.model.Navigator;
 import am.levayv.testing.claio.chess.model.piece.data.Color;
 import am.levayv.testing.claio.chess.model.piece.data.PieceType;
 
@@ -18,7 +19,15 @@ public class Queen extends Piece {
 
     @Override
     protected void updateAvailableMoves(Cell current , HashSet<Cell> set) {
-
+        //todo IMF - Queen move unlmited cells in any direction , total of 8 directions max 27 !
+        for (Navigator.Dir dir:
+                Navigator.Dir.values()) {
+            // todo traverse ? how ?
+            cellBuffer = Navigator.getNearbyCellTo(current, dir);
+            if (cellBuffer!=null)
+                this.baseMoveRule(cellBuffer);
+        }
     }
+
 
 }

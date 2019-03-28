@@ -27,6 +27,7 @@ public class Navigator {
         assert cell!=null;
 //        System.out.println("!!! log Navigator cell is " + Pos.toCellName(cell.pos) + "...");
         innerCellBuffer = null;
+        //todo optimise Model.getInstance ... ... ...
         switch (dir){
             case NORTH:
                 if (cell.pos.y+1<size){
@@ -36,7 +37,12 @@ public class Navigator {
                                     cell.pos.y+1 );
                 }break;
             case EAST:
-                break;
+                if (cell.pos.x+1<size){
+                    innerCellBuffer =
+                            Model.getInstance().board.getCell(
+                                    cell.pos.x+1,
+                                    cell.pos.y+0 );
+                }break;
             case SOUTH:
                 if (cell.pos.y-1>=0){
                     innerCellBuffer =
@@ -45,7 +51,12 @@ public class Navigator {
                                     cell.pos.y-1 );
                 }break;
             case WEST:
-                break;
+                if (cell.pos.x-1>=0){
+                    innerCellBuffer =
+                            Model.getInstance().board.getCell(
+                                    cell.pos.x-1,
+                                    cell.pos.y+0 );
+                }break;
             case NORTH_WEST:
                 if (cell.pos.y+1<size && cell.pos.x-1>=0){
                     innerCellBuffer =

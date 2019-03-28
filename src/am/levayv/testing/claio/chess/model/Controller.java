@@ -51,7 +51,13 @@ public class Controller {
         for (Piece piece :
                 pieces) {
             // only if Piece is Pawn, for now
-            if (piece.getType().equals(PieceType.PAWN)){
+            // or King
+            //
+            if (piece.getType().equals(PieceType.PAWN)
+                    || piece.getType().equals(PieceType.KING)
+                    || piece.getType().equals(PieceType.QUEEN)
+
+                    ){
                 if (piece.isAlive()){
                     piece.updateAvailableMoves(piece.getOccupyingCell());
 

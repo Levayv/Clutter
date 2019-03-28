@@ -22,15 +22,7 @@ public class Pawn extends Piece {
     @Override
     protected void updateAvailableMoves(Cell current , HashSet<Cell> set) {
         //todo IMF - pawns move only 1 cell forward (see steps 2.2 >>> 2.5)
-
-        // step 1. Clear previously present cells from set and the buffer
-        if (!set.isEmpty()){
-//            for (Cell eachCell : set) { //refactor foreach
-//                eachCell.setStatus(CellStatus.None);
-//            } //todo migrating to controller
-            set.clear();
-        }
-        cellBuffer = null;
+        // step 1. Clear previously present cells from set and the buffer [Done in Piece]
         // step 2. Check Piece color (AKA PlayerColor) is black or white
         if (this.getColor().equals(Color.WHITE)) {
             // move logic to North
