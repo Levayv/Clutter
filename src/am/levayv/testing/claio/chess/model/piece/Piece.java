@@ -68,9 +68,11 @@ public abstract class Piece {
         updateAvailableMoves(current , availableMoves);
     }
     protected abstract void updateAvailableMoves(Cell current , HashSet<Cell> set);
-    /** common for everyone except the Pawn */
-    protected void baseMoveRule(Cell cell){
-        assert cell!=null; //todo temp solution
+    /** common for everyone except the Pawn
+     * returns true if collision detected*/
+    protected boolean baseMoveRule(Cell cell){
+        boolean collision = false;
+        assert cell!=null; //todo temp check
         if (cell.isOccupied()){
             // IF occupied
             if (!cell.isMine(this.getColor())){
@@ -80,10 +82,12 @@ public abstract class Piece {
                 // IF occupied BY Friend
                 // do nothing
             }
+            collision = true;
         } else {
             // IF NOT occupied
             availableMoves.add(cell);
         }
+        return collision;
     }
     public HashSet<Cell> getAvailableMoves(){
         return this.availableMoves;
