@@ -2,6 +2,7 @@ package am.levayv.testing.claio.chess.core.swing;
 
 import am.levayv.testing.claio.chess.AppType;
 import am.levayv.testing.claio.chess.core.AbstractApp;
+import am.levayv.testing.claio.chess.model.piece.data.Pos;
 import am.levayv.testing.claio.chess.ui.SwingUI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,13 +11,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
-public class SwingApp extends AbstractApp implements ActionListener {
+public class SwingApp extends AbstractApp implements ActionListener{
     private static final Logger log = LogManager.getLogger(SwingApp.class);
 
     private JFrame frame;
     private JPanel panelRoot;
     private JPanel panelMain; // consider main grid 8x8
+    private JPanel panelBot;
 
     public SwingApp(AppType type) {
         // model init by parent
@@ -44,6 +47,30 @@ public class SwingApp extends AbstractApp implements ActionListener {
     @Override
     protected void setUI() {
         this.ui = new SwingUI(this, this.panelMain, this.model);
+
+//        // todo testing drag and drop
+//
+//        JTextField  compOne = new JTextField ();
+//        JTextField  compTwo = new JTextField ();
+//
+//        panelBot.setLayout(new FlowLayout());
+//
+//        panelBot.add(compOne);
+//        panelBot.add(compTwo);
+//
+//        compOne.setText("Text One");
+//        compTwo.setText("Text Two");
+//
+//        compOne.setToolTipText("This is tooltip of Component 1");
+//        compTwo.setToolTipText("This is tooltip of Component 2");
+//
+//        compOne.setDragEnabled(false);
+//        compTwo.setDragEnabled(false);
+//
+//
+////        compOne.setEnabled(false);
+////        compTwo.setEnabled(false);
+
     }
 
     @Override
@@ -79,8 +106,35 @@ public class SwingApp extends AbstractApp implements ActionListener {
 //    }
 
     @Override
-    public void actionPerformed(ActionEvent e) { //todo research, MouseClicked vs ActionPerformed
+    public void actionPerformed(ActionEvent event) { //todo research, MouseClicked vs ActionPerformed
         // Forward all input to UI controller block
-        ui.processInput(e);
+        ui.processInput(getPosFromAwtEvent(event));
+    }
+    /** get Pos from Action event for passing to Controller */
+    @Deprecated //MOUSE NOT WORKING AS INTENDED
+    private static Pos getPosFromAwtEvent(AWTEvent awtEvent){
+        // todo BUGGY refactor optimise
+        assert awtEvent!= null;
+        String command = null;
+//        if (awtEvent instanceof MouseEvent){
+//            assert ((MouseEvent) awtEvent).getSource() instanceof JButton;
+//            command = ((JButton) ((MouseEvent) awtEvent).getSource()).getActionCommand();
+//        }
+        if (awtEvent instanceof ActionEvent){
+            // Oracle: ActionEvent.getActionCommand(), null command string is legal, but not recommended.
+            assert ((ActionEvent) awtEvent).getActionCommand() != null;
+            command = ((ActionEvent) awtEvent).getActionCommand();
+            // String s = ""; <<< this is legal string with 0 length
+            assert !command.isEmpty();
+        }
+        assert command != null;
+        //get coordinates from input
+        int t = Integer.valueOf(command);
+        // with consideration of coordinates must be less then 8
+        int x = t / 10, y = t % 10;
+
+        //todo refactor SMELL creating new object each time !
+        // Pos is minimalistic object consistent of only 2 bytes
+        return new Pos(x, y);
     }
 }

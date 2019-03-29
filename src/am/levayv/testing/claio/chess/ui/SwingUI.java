@@ -92,54 +92,17 @@ public class SwingUI extends AbstractUI { //todo logical bug refactor AbstractAp
     }
 
     @Override
-    public void processInput(Object event) { //todo try catch ?
-        if (event != null) { //todo optimise
-            if (event instanceof ActionEvent) {
-                ActionEvent actionEvent = (ActionEvent) event;
-                if (actionEvent.getActionCommand() != null) {
-                    if (!actionEvent.getActionCommand().isEmpty()) {
-                        //get coordinates from input
-                        int t = Integer.valueOf(actionEvent.getActionCommand());
-                        int x = t / 10, y = t % 10;
-                        //todo beatify console output
-                        log.info("Selected Field: "
-                                + x + " " + y + " " + Pos.toCellName(x, y) + " "
-                                + ((Model.getInstance().board.getCell(x,y).getView().isOccupied())
-                                ? Model.getInstance().board.getCell(x,y).getView().letter
-                                : "NO PIECE")
-                        );
-                        //todo refactor SMELL creating new object each time !
-
-                        model.controller.handleEventAt(new Pos(x, y));
-
-                        // update all buttons
-                        this.update();
-                    } else {
-                        log.info("processing Input : can't handle input , event is not cell button command ");
-                    }
-                } else {
-                    log.info("processing Input : can't handle input , event's command is null");
-                }
-            } else {
-                log.info("processing Input : can't handle input , event is Unknown");
-            }
-        } else {
-            log.info("processing Input : can't handle input , event is NULL");
-        }
-
-        //todo REMOVE THIS - gist from older version
-        //        if (button[h][w].Piece.real) System.out.print(" real ");
-//        if (button[h][w].Piece.white) System.out.print("white ");
-//        System.out.print(buttons[h][w].Piece.type + " " + buttons[h][w].Piece.icon);
-//        System.out.println(" ! (" + moving + ")");
-//
-//        if (turn){  //if your turn
-//            move(h,w);
-//
-//        }else{  // MUST BE REPLACED WHITH AI
-//            //////////////////////////////////////////////////////////////////
-//            move(h,w);
-//        }
+    public void processInput(Pos pos) { //todo try catch ?
+        //todo beatify console output
+        log.info("Selected Field: "
+                + pos.x + " " + pos.y + " " + Pos.toCellName(pos.x, pos.y) + " "
+                + ((Model.getInstance().board.getCell(pos.x,pos.y).getView().isOccupied())
+                ? Model.getInstance().board.getCell(pos.x,pos.y).getView().letter
+                : "NO PIECE")
+        );
+        model.controller.handleEventAt(pos);
+        // update all buttons
+        this.update();
     }
 
     @Override
@@ -147,16 +110,6 @@ public class SwingUI extends AbstractUI { //todo logical bug refactor AbstractAp
         log.info("Updated");
         for (SwingCell button :
                 buttonList) {
-//            System.out.println("!!! 123 B" + ((button!=null)?"true":"false"));
-//            System.out.println("!!! 123 C" + ((button.cell!=null)?"true":"false"));
-//            System.out.println("!!! 123 V" + ((button.cell.getView()!=null)?"true":"false"));
-//            if (button.cell.getView()==null){
-//                System.out.println("!!! Boom Pre - "
-//                        + button.cell.pos.x + "/"
-//                        + button.cell.pos.y
-//                );
-//            }
-//            System.out.println("!!! 123 I" + ((button.cell.getView().icon!=0)?"true":"false"));
             String stringBuffer = String.valueOf(button.cellView.icon);
             button.setText(stringBuffer);
 
@@ -165,45 +118,6 @@ public class SwingUI extends AbstractUI { //todo logical bug refactor AbstractAp
                 case Active:    button.setBorder(moveActiveBorder); break;
                 case Candidate: button.setBorder(moveCandidateBorder); break;
             }
-
-//            if (button.cell.getView().isActive()){
-//            } else {
-//                if (button.cell.getView().isCandidate()){
-//                    button.setBorder(moveCandidateBorder);
-//                }else {
-//                    button.setBorder(border);
-//                }
-//            }
-
-
-
-
-//            if (button.cell.isActive()){
-//                button.setBorder(moveActiveBorder);
-//            }else {
-//                button.setBorder(border);
-//            }
-
         }
-
-
-
-
-//        for (int i = size-1 ; i >= 0; i--) {
-//            for (int j = 0; j < size; j++) {
-//                Pos pos = new Pos(i,j);
-//                if (model.mask.getIsOccupied(pos)){
-////                    buttons[i][j].setText(String.valueOf(model.mask.id[i][j].ordinal()));
-//                    buttons[i][j].setText(
-//                            String.valueOf(
-//                                    model.mask.getType(pos).getIcon(
-//                                            model.mask.getIsWhite(pos)
-//                                    )
-//                            )
-//                    );
-//                }
-//            }
-//        }
-
     }
 }

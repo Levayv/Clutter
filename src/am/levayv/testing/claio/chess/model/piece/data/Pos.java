@@ -4,8 +4,9 @@ import am.levayv.testing.claio.chess.model.Board;
 
 public class Pos { //todo reconsider mutation , research needed?
     // Cells are finite (no more no less then 64) with only one "Pos" composite object
-    public byte x;
-    public byte y;
+    //  already not , made both x y final and all headache are GONE !
+    public final byte x;
+    public final byte y;
 
     public Pos(int x , int y){
         Board.inBoundsAssertion(x,y);

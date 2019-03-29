@@ -1,6 +1,7 @@
 package am.levayv.testing.claio.chess.ui;
 
 import am.levayv.testing.claio.chess.model.Model;
+import am.levayv.testing.claio.chess.model.piece.data.Pos;
 
 public abstract class AbstractUI {
 
@@ -9,7 +10,7 @@ public abstract class AbstractUI {
     public AbstractUI(Model model){
         this.model = model;
     } //todo useless arg if Model IS singleton
-    public abstract void processInput(Object e);
+    public abstract void processInput(Pos pos);
     public abstract void update();
 
 }

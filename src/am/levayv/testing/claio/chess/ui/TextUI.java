@@ -18,7 +18,7 @@ public class TextUI extends AbstractUI {
     }
 
     @Override
-    public void processInput(Object e) {
+    public void processInput(Pos pos) {
 
     }
 
