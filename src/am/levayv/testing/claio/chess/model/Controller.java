@@ -116,9 +116,10 @@ public class Controller {
         stateMachine.getState().onEvent(this, pos);
     }
 
-    // temp
-    public void setUp(Pos pos){ //refactor name load ?
-        //todo create new Class Position/Stance
+
+    /** POS MUST BE NULL */
+    public void setUp(Pos pos){
+        //todo IMF create new Class Position/Stance AKA Composition
         assert pos == null;
 
         Model.getInstance().board.setUpPieces();

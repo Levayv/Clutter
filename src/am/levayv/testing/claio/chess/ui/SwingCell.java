@@ -1,21 +1,14 @@
 package am.levayv.testing.claio.chess.ui;
 
-import am.levayv.testing.claio.chess.model.Cell;
-import am.levayv.testing.claio.chess.model.Model;
-import am.levayv.testing.claio.chess.model.View;
-import com.sun.istack.internal.NotNull;
+import am.levayv.testing.claio.chess.model.CellView;
 
-import javax.swing.*;
+import javax.swing.JButton;
 
-public class SwingCell extends JButton{
+class SwingCell extends JButton{
+    final CellView cellView;
 
-    // Store Model.Board.Cell each (64) reference
-    private Cell cell; //todo temp
-    public View cellView;
-//    @NotNull
-//    public View getView(){
-//        return cell.getView();
-//    }
-//    public void updateBorder(){
-//    }
+    /** SwingCell is storing ONLY views of corresponding Cells*/
+    SwingCell(CellView cellView) {
+        this.cellView = cellView;
+    }
 }

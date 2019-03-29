@@ -11,8 +11,7 @@ public class TextUI extends AbstractUI {
     private TextCell[][] symbols = new TextCell[size][size];
     private ArrayList<TextCell> symbolList = new ArrayList<TextCell>();
 
-    public TextUI(Model model) {
-        super(model);
+    public TextUI() {
         buffer = new ArrayList<String>();
         update();
     }

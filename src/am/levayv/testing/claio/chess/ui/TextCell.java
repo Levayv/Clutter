@@ -1,11 +1,11 @@
 package am.levayv.testing.claio.chess.ui;
 
 import am.levayv.testing.claio.chess.model.Cell;
-import am.levayv.testing.claio.chess.model.View;
+import am.levayv.testing.claio.chess.model.CellView;
 
 public class TextCell {
     public Cell cell;
-    public View getView(){
+    public CellView getView(){
         return cell.getView();
     }
 }

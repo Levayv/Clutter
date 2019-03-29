@@ -19,7 +19,7 @@ public class TextApp extends AbstractApp {
 
     @Override
     protected void setUI() {
-        this.ui = new TextUI(this.model);
+        this.ui = new TextUI();
     }
 
     @Override

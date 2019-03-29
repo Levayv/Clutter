@@ -139,7 +139,7 @@ public abstract class Piece {
         return uId;
     }
 
-//    public View getView(){
+//    public CellView getView(){
 //        return view;
 //    }
 

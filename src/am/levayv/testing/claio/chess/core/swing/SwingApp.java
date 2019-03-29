@@ -46,7 +46,7 @@ public class SwingApp extends AbstractApp implements ActionListener{
 
     @Override
     protected void setUI() {
-        this.ui = new SwingUI(this, this.panelMain, this.model);
+        this.ui = new SwingUI(this, this.panelMain);
 
 //        // todo testing drag and drop
 //
@@ -93,18 +93,6 @@ public class SwingApp extends AbstractApp implements ActionListener{
             }
         });
     }
-
-//    @Override
-//    public AbstractController setController(AbstractController controller) {
-//        return null;
-//    }
-//
-//    @Override
-//    public AbstractView getView() {
-//
-//        return null;
-//    }
-
     @Override
     public void actionPerformed(ActionEvent event) { //todo research, MouseClicked vs ActionPerformed
         // Forward all input to UI controller block

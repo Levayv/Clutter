@@ -6,8 +6,6 @@ import am.levayv.testing.claio.chess.model.piece.data.Pos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashSet;
-
 public class Cell{
     private static final Logger log = LogManager.getLogger(Cell.class);
 
@@ -19,8 +17,8 @@ public class Cell{
         this.view.setStatus(status);
     }
 
-    // View
-    private View view;
+    // CellView
+    private CellView view;
 
     // Pos
     Pos pos;
@@ -39,9 +37,9 @@ public class Cell{
         initView(); //todo refactor
     }
     private void initView(){
-        view = new View();
+        view = new CellView();
     }
-    public View getView() {
+    public CellView getView() {
         return this.view;
     }
 
