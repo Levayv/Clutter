@@ -2,6 +2,8 @@ package am.levayv.testing.claio.chess.model;
 
 
 import am.levayv.testing.claio.chess.model.fsm.State;
+import am.levayv.testing.claio.chess.model.piece.King;
+import am.levayv.testing.claio.chess.model.piece.Pawn;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
 
 enum ControllerState implements State<Controller> {
@@ -60,8 +62,37 @@ enum ControllerState implements State<Controller> {
             } else {
                 // IF piece can move here
                 if (from.canArriveTo(cell)) {
-                    boolean b = cell.moveHere(from); //todo refactor , boolean b not needed
-                    assert b;
+                    if (from.getPiece().isSpecialMove(cell)){
+                        if (from.getPiece() instanceof King){
+                            System.out.println("!!! Castle from ");
+                            boolean b1 = cell.moveHere(from);
+                            assert b1;
+                            if (((King) cell.getPiece()).isCastlingToTheRight()){
+                                boolean b2 = ((King) cell.getPiece()).
+                                        castling.getCellRookRightTo().moveHere(
+                                        ((King) cell.getPiece()).
+                                                castling.getCellRookRightFrom()
+                                );
+                                assert b2;
+                            } else {
+                                boolean b2 = ((King) cell.getPiece()).
+                                        castling.getCellRookLeftTo().moveHere(
+                                        ((King) cell.getPiece()).
+                                                castling.getCellRookLeftFrom()
+                                );
+                                assert b2;
+                            }
+                            System.out.println("!!! Castle  to  ");
+                        }
+                        if (from.getPiece() instanceof Pawn){
+                            System.out.println("IN PASSAGE - MISSING FUNCTIONALITY");
+                        }
+//                        boolean b = cell.moveHere(from);
+//                        assert b;
+                    }else {
+                        boolean b = cell.moveHere(from); //todo refactor , boolean b not needed
+                        assert b;
+                    }
                     ctrl.setActiveCell(null);
                     ctrl.setCandidateCells(cell.piece.getAvailableMoves(),false);
                     ctrl.switchPlayer();

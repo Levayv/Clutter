@@ -31,6 +31,7 @@ public class Board {
         }
         log.info("Init OK");
     }
+    /** ... nullifying offence values on all cells */
     public void purge(){
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -85,20 +86,20 @@ public class Board {
         //
         pieces.add(cell[4][0].initialAdd(new King(Color.WHITE)));
         pieces.add(cell[4][7].initialAdd(new King(Color.BLACK)));
-        pieces.add(cell[3][0].initialAdd(new Queen(Color.WHITE)));
-        pieces.add(cell[3][7].initialAdd(new Queen(Color.BLACK)));
+//        pieces.add(cell[3][0].initialAdd(new Queen(Color.WHITE)));
+//        pieces.add(cell[3][7].initialAdd(new Queen(Color.BLACK)));
         pieces.add(cell[0][0].initialAdd(new Rook(Color.WHITE)));
         pieces.add(cell[7][0].initialAdd(new Rook(Color.WHITE)));
         pieces.add(cell[0][7].initialAdd(new Rook(Color.BLACK)));
         pieces.add(cell[7][7].initialAdd(new Rook(Color.BLACK)));
-        pieces.add(cell[2][0].initialAdd(new Bishop(Color.WHITE)));
-        pieces.add(cell[5][0].initialAdd(new Bishop(Color.WHITE)));
-        pieces.add(cell[2][7].initialAdd(new Bishop(Color.BLACK)));
-        pieces.add(cell[5][7].initialAdd(new Bishop(Color.BLACK)));
-        pieces.add(cell[1][0].initialAdd(new Knight(Color.WHITE)));
-        pieces.add(cell[6][0].initialAdd(new Knight(Color.WHITE)));
-        pieces.add(cell[1][7].initialAdd(new Knight(Color.BLACK)));
-        pieces.add(cell[6][7].initialAdd(new Knight(Color.BLACK)));
+//        pieces.add(cell[2][0].initialAdd(new Bishop(Color.WHITE)));
+//        pieces.add(cell[5][0].initialAdd(new Bishop(Color.WHITE)));
+//        pieces.add(cell[2][7].initialAdd(new Bishop(Color.BLACK)));
+//        pieces.add(cell[5][7].initialAdd(new Bishop(Color.BLACK)));
+//        pieces.add(cell[1][0].initialAdd(new Knight(Color.WHITE)));
+//        pieces.add(cell[6][0].initialAdd(new Knight(Color.WHITE)));
+//        pieces.add(cell[1][7].initialAdd(new Knight(Color.BLACK)));
+//        pieces.add(cell[6][7].initialAdd(new Knight(Color.BLACK)));
         pieces.add(cell[0][1].initialAdd(new Pawn(Color.WHITE)));
         pieces.add(cell[1][1].initialAdd(new Pawn(Color.WHITE)));
         pieces.add(cell[2][1].initialAdd(new Pawn(Color.WHITE)));

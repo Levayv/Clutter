@@ -12,6 +12,7 @@ import java.util.HashSet;
 public abstract class Piece {
     private boolean isAlive; // todo refactor with default values
     private boolean isOriginalPos = true;
+    private boolean specialMove;
     private PieceType type;
     private Color color;
     private HashSet<Cell> availableMoves;
@@ -167,4 +168,12 @@ public abstract class Piece {
             assert this.occupyingCell.getUId() == occupyingCell.getUId();
         }
     }
+
+    public boolean isSpecialMove(Cell cell) {
+        return false;
+    }
+
+//    public void setSpecialMove(boolean specialMove) {
+//        this.specialMove = specialMove;
+//    }
 }
