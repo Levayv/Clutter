@@ -185,7 +185,7 @@ public class Cell{
     private void overflowWatchdog(){
         uId = uId + count;
         count++;
-        assert this.uId < 64;
+        assert this.uId < Board.getSize()*Board.getSize();
     }
 
 //    public int getWhiteOffence() { return whiteOffence; }

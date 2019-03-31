@@ -1,8 +1,8 @@
 package am.levayv.testing.claio.chess.model.piece.data;
 
 import am.levayv.testing.claio.chess.model.Cell;
-import am.levayv.testing.claio.chess.model.Navigator;
 import am.levayv.testing.claio.chess.model.piece.King;
+import am.levayv.testing.claio.chess.model.piece.Rook;
 
 public class Castling {
     public boolean left; //todo encapsulate
@@ -48,31 +48,36 @@ public class Castling {
         availableLeft = false;
         availableRight = false;
         // Rule: King must not been moved at all
-        if (king.isOriginalPos()){
+        if (king.isOriginalPos()) {
             // Rule: Left Rook must not been moved at all
-            if (rookAtLeftCell.getPiece().isOriginalPos()){
-                // 3 cells on King right side must be empty
-                if (!cell1_leftEmptySpace.isOccupied()) {
-                    if (!cell2_leftKingDestination.isOccupied()) {
-                        if (!cell3_leftRookDestination.isOccupied()) {
-                            if (true){ //todo IMF isUnderThreat()
-                                availableLeft = true;
+            if (rookAtLeftCell.getPiece() instanceof Rook) {
+                if (rookAtLeftCell.getPiece().isOriginalPos()) {
+                    // 3 cells on King right side must be empty
+                    if (!cell1_leftEmptySpace.isOccupied()) {
+                        if (!cell2_leftKingDestination.isOccupied()) {
+                            if (!cell3_leftRookDestination.isOccupied()) {
+                                if (true) { //todo IMF isUnderThreat()
+                                    availableLeft = true;
+                                }
                             }
                         }
                     }
                 }
             }
             // Rule: Right Rook must not been moved at all
-            if (rookAtRightCell.getPiece().isOriginalPos()){
-                // 2 cells on King left side must be empty
-                if (!cell4_rightRookDestination.isOccupied()) {
-                    if (!cell5_rightKingDestination.isOccupied()) {
-                        if (true ) { //todo IMF isUnderThreat()
-                            availableRight = true;
+            if (rookAtRightCell.getPiece() instanceof Rook) {
+                if (rookAtRightCell.getPiece().isOriginalPos()) {
+                    // 2 cells on King left side must be empty
+                    if (!cell4_rightRookDestination.isOccupied()) {
+                        if (!cell5_rightKingDestination.isOccupied()) {
+                            if (true) { //todo IMF isUnderThreat()
+                                availableRight = true;
+                            }
                         }
                     }
                 }
             }
+
         }
     }
     public boolean isAvailableLeft(){

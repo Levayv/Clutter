@@ -12,7 +12,7 @@ import java.util.HashSet;
 // todo candidate cells not flashing after wrong click
 
 public class King extends Piece {
-    public Castling castling;
+    public Castling castling; // todo encapsulate
     public King(Color color) {
         super(color);
         if (color==Color.WHITE){
@@ -38,7 +38,6 @@ public class King extends Piece {
                     Model.getInstance().board.getCell(7,7)
             );
         }
-
     }
 
     @Override
