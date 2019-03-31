@@ -15,8 +15,10 @@ public class SwingUI extends AbstractUI { //todo logical bug refactor AbstractAp
     private static final Logger log = LogManager.getLogger(SwingUI.class);
 
     private final Border border = BorderFactory.createLineBorder(Color.GRAY, 1);
-    private final Border moveActiveBorder = BorderFactory.createLineBorder(Color.CYAN, 1);
-    private final Border moveCandidateBorder = BorderFactory.createLineBorder(Color.YELLOW, 1);
+    private final Border moveActiveBorder = BorderFactory.createLineBorder(Color.BLUE, 1);
+    private final Border moveCandidateBorder = BorderFactory.createLineBorder(Color.CYAN, 1);
+    private final Border riskGood = BorderFactory.createLineBorder(Color.RED, 1);
+    private final Border riskBad = BorderFactory.createLineBorder(Color.GREEN, 1);
 
     private SwingCell[][] buttons = new SwingCell[size][size];
     private final ArrayList<SwingCell> buttonList = new ArrayList<SwingCell>();
@@ -30,8 +32,8 @@ public class SwingUI extends AbstractUI { //todo logical bug refactor AbstractAp
         final Font font = new Font("Dialog", Font.BOLD, 44);
         final Color BLACK_BOARD = new Color(204, 204, 204);
         final Color WHITE_BOARD = new Color(153, 153, 153);
-        final short buttonWidth = 50;
-        final short buttonHeight = 50;
+        final short buttonWidth = 100;
+        final short buttonHeight = 100;
         final Dimension minDim = new Dimension(buttonWidth, buttonHeight);
         final Dimension prfDim = new Dimension(buttonWidth, buttonHeight);
         final Dimension maxDim = new Dimension(buttonWidth, buttonHeight);
@@ -94,9 +96,34 @@ public class SwingUI extends AbstractUI { //todo logical bug refactor AbstractAp
                 buttonList) {
             String stringBuffer = String.valueOf(button.cellView.icon);
             button.setText(stringBuffer);
+            button.topLeft.setText(
+                    String.valueOf(
+                            button.cellView.getWhiteOff()
+                    )
+            );
+            button.topRight.setText(
+                    String.valueOf(
+                            button.cellView.getBlackOff()
+                    )
+            );
+            int ow = button.cellView.getWhiteOff();
+            int ob = button.cellView.getBlackOff();
 
             switch (button.cellView.getStatus()) { //todo its ugly i know
-                case None:      button.setBorder(border); break;
+                case None:
+                    button.setBorder(border);
+                    if (button.cellView.isOccupied()){
+                        if (Character.isLowerCase(button.cellView.letter)){
+                            if (ow > ob) {
+                                button.setBorder(riskBad);
+                            }
+                        } else {
+                            if (ow < ob){
+                                button.setBorder(riskGood);
+                            }
+                        }
+                    }
+                    break;
                 case Active:    button.setBorder(moveActiveBorder); break;
                 case Candidate: button.setBorder(moveCandidateBorder); break;
             }

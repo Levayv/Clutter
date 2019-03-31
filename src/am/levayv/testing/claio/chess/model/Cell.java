@@ -11,6 +11,9 @@ public class Cell{
 
     // Cell status can be PASSIVE ACTIVE CANDIDATE
     private CellStatus status = CellStatus.None;
+    private int whiteOffence;
+    private int blackOffence;
+
     @Deprecated //todo research packaging. DONE , test it
     void setStatus(CellStatus status) {
         this.status = status;
@@ -122,6 +125,14 @@ public class Cell{
             assert this.piece.getColor() != piece.getColor();
             this.piece.setOccupyingCell(null);
             this.piece.setAlive(false);
+//            for (Cell cell :
+//                    this.piece.getAvailableMoves()) {
+//                if (this.piece.isWhite()){
+//                    cell.updateWhiteOffence(-1); // killing
+//                } else {
+//                    cell.updateBlackOffence(-1); // killing
+//                }
+//            }
             this.piece = null; // useless ?
         } else { // move only
             this.setOccupied(true);
@@ -140,6 +151,14 @@ public class Cell{
      */
     private boolean removePiece() {
         assert occupied;
+//        for (Cell cell :
+//                this.piece.getAvailableMoves()) {
+//            if (this.piece.isWhite()){
+//                cell.updateWhiteOffence(-1);
+//            } else {
+//                cell.updateBlackOffence(-1);
+//            }
+//        }
         this.piece = null;
         setOccupied(false);
         return true;
@@ -167,5 +186,24 @@ public class Cell{
         uId = uId + count;
         count++;
         assert this.uId < 64;
+    }
+
+//    public int getWhiteOffence() { return whiteOffence; }
+//    public int getBlackOffence() { return blackOffence; }
+
+    public void purgeOffence(){
+        this.whiteOffence = 0;
+        this.view.setWhiteOff(0);
+        this.blackOffence = 0;
+        this.view.setBlackOff(0);
+    }
+
+    public void updateWhiteOffence(int whiteOffenceDifference) {
+        this.whiteOffence = whiteOffence + whiteOffenceDifference;
+        this.view.setWhiteOff(whiteOffence);
+    }
+    public void updateBlackOffence(int blackOffenceDifference) {
+        this.blackOffence = blackOffence + blackOffenceDifference;
+        this.view.setBlackOff(blackOffence);
     }
 }

@@ -37,4 +37,10 @@ public class CellView {
         this.isOccupied = arg;
     }
 
+    private int WhiteOff;
+    private int BlackOff;
+    public int getWhiteOff() { return WhiteOff; }
+    public void setWhiteOff(int whiteOff) { WhiteOff = whiteOff; }
+    public int getBlackOff() { return BlackOff; }
+    public void setBlackOff(int blackOff) { BlackOff = blackOff; }
 }

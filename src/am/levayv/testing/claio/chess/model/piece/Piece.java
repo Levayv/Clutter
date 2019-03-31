@@ -83,10 +83,20 @@ public abstract class Piece {
                 // IF occupied BY Friend
                 // do nothing
             }
+            if (this.isWhite()){
+                cell.updateWhiteOffence(+1);
+            } else {
+                cell.updateBlackOffence(+1);
+            }
             collision = true;
         } else {
             // IF NOT occupied
             availableMoves.add(cell);
+            if (this.isWhite()){
+                cell.updateWhiteOffence(+1);
+            } else {
+                cell.updateBlackOffence(+1);
+            }
         }
         return collision;
     }

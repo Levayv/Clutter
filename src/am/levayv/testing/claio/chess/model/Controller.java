@@ -47,6 +47,7 @@ public class Controller {
         else
             currentPlayer = Color.WHITE;
         //crude implementation , optimise update for each color separably
+        Model.getInstance().board.purge();
         ArrayList<Piece> pieces =  Model.getInstance().board.pieces;
         for (Piece piece :
                 pieces) {

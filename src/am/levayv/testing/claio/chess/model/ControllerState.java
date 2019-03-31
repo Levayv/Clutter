@@ -65,6 +65,10 @@ enum ControllerState implements State<Controller> {
                     ctrl.setActiveCell(null);
                     ctrl.setCandidateCells(cell.piece.getAvailableMoves(),false);
                     ctrl.switchPlayer();
+                    //////////////////
+
+
+                    ///////////////////
                     ctrl.stateMachine.changeState(WAITING);
                     //todo polish logging
                     System.out.println("Log: state changed to OPPONENT wait");

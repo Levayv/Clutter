@@ -7,6 +7,8 @@ import am.levayv.testing.claio.chess.model.piece.data.PieceType;
 
 import java.util.HashSet;
 
+// todo candidate cells not flashing after wrong click
+
 public class King extends Piece {
     public King(Color color) {
         super(color);

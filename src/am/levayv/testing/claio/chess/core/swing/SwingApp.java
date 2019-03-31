@@ -87,7 +87,7 @@ public class SwingApp extends AbstractApp implements ActionListener{
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 dim.width = dim.width / 2 - frame.getSize().width / 2;
                 dim.height = dim.height / 2 - frame.getSize().height / 2;
-                frame.setLocation(dim.width, dim.height);
+                frame.setLocation(dim.width-500, dim.height-500);
                 frame.add(panelRoot);
                 frame.pack();
             }

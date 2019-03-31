@@ -34,14 +34,10 @@ public class Pawn extends Piece {
             // step 2.3 add left right diagonal "attack move" logic (WHITE)
             cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.NORTH_EAST);
             if (cellBuffer!=null)
-                if (cellBuffer.isOccupied())
-                    if (cellBuffer.isMine(Color.BLACK))
-                        set.add(cellBuffer);
+                basicAttack(set);
             cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.NORTH_WEST);
             if (cellBuffer!=null)
-                if (cellBuffer.isOccupied())
-                    if (cellBuffer.isMine(Color.BLACK))
-                        set.add(cellBuffer);
+                basicAttack(set);
             // step 2.2 add "first double move" logic (WHITE)
             if (current.getPiece().isOriginalPos()) { //todo optimise , research needed
                 cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.NORTH);
@@ -64,14 +60,10 @@ public class Pawn extends Piece {
             // step 2.3 add left right diagonal "attack move" logic (BLACK)
             cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.SOUTH_EAST);
             if (cellBuffer!=null)
-                if (cellBuffer.isOccupied())
-                    if (cellBuffer.isMine(Color.WHITE))
-                        set.add(cellBuffer);
+                basicAttack(set);
             cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.SOUTH_WEST);
             if (cellBuffer!=null)
-                if (cellBuffer.isOccupied())
-                    if (cellBuffer.isMine(Color.WHITE))
-                        set.add(cellBuffer);
+                basicAttack(set);
             // step 2.2 add pawn's "first double move" logic (BLACK)
             if (current.getPiece().isOriginalPos()) { //todo optimise , research needed
                 cellBuffer = Navigator.getNearbyCellTo(current, Navigator.Dir.SOUTH);
@@ -81,6 +73,16 @@ public class Pawn extends Piece {
             }// step 2.4 add "in passing" logic (BLACK)
             // step 2.5 add "promotion" logic (BLACK)
 
+        }
+    }
+    protected void basicAttack(HashSet<Cell> set){
+        if (cellBuffer.isOccupied())
+            if (!cellBuffer.isMine(getColor()))
+                set.add(cellBuffer);
+        if (this.isWhite()){
+            cellBuffer.updateWhiteOffence(+1);
+        } else {
+            cellBuffer.updateBlackOffence(+1);
         }
     }
 }
