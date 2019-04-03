@@ -63,6 +63,7 @@ enum ControllerState implements State<Controller> {
                 // IF piece can move here
                 if (from.canArriveTo(cell)) {
                     if (from.getPiece().isSpecialMove(cell)){
+                        // IF Special Move : Castling
                         if (from.getPiece() instanceof King){
                             System.out.println("!!! Castle from ");
                             boolean b1 = cell.moveHere(from);
@@ -84,8 +85,9 @@ enum ControllerState implements State<Controller> {
                             }
                             System.out.println("!!! Castle  to  ");
                         }
+                        // IF Special Move : In passing
                         if (from.getPiece() instanceof Pawn){
-                            System.out.println("IN PASSAGE - MISSING FUNCTIONALITY");
+                            System.out.println("IN PASSING - MISSING FUNCTIONALITY");
                         }
 //                        boolean b = cell.moveHere(from);
 //                        assert b;
@@ -107,7 +109,7 @@ enum ControllerState implements State<Controller> {
                     return true;
                 } else { // abort movement
                     ctrl.setActiveCell(null);
-                    ctrl.setCandidateCells(cell.piece.getAvailableMoves(),false);
+                    ctrl.setCandidateCells(from.piece.getAvailableMoves(),false);
                     ctrl.stateMachine.changeState(WAITING);
                     //todo polish logging
                     System.out.println("Log: state changed to SELF wait");

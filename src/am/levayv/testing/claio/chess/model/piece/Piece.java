@@ -162,7 +162,7 @@ public abstract class Piece {
     public void setOccupyingCell(Cell occupyingCell) {
         this.occupyingCell = occupyingCell;
 //        assert this.occupyingCell.getView().letter == this.getType().getLetter(this.isWhite());
-        if (occupyingCell == null)
+        if (occupyingCell == null) //todo refactor
             assert this.occupyingCell == null;
         else{
             assert this.occupyingCell.getUId() == occupyingCell.getUId();

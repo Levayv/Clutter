@@ -3,6 +3,7 @@ package am.levayv.testing.claio.chess.model;
 import am.levayv.testing.claio.chess.model.piece.*;
 import am.levayv.testing.claio.chess.model.piece.data.Color;
 import am.levayv.testing.claio.chess.model.piece.data.Pos;
+import am.levayv.testing.claio.chess.model.serial.Composition;
 import com.sun.istack.internal.NotNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -116,6 +117,12 @@ public class Board {
         pieces.add(cell[7][6].initialAdd(new Pawn(Color.BLACK)));
         pieces.add(cell[5][6].initialAdd(new Pawn(Color.BLACK)));
         pieces.add(cell[4][6].initialAdd(new Pawn(Color.BLACK)));
+        getComp();
+    }
+    private void getComp(){
+        Composition comp = new Composition();
+        comp.generate(this);
+        comp.get();
     }
 
     //STOPSHIP research if-else-if / exception / assert
